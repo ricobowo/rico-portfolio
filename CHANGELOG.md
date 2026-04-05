@@ -5,6 +5,50 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.6.0] — 2026-04-05
+### Fixed
+- **Contact nav bug**: Clicking "Contact" in sidebar nav was activating "Skills" instead — fixed by calling `setActiveNav()` immediately on link click, before `IntersectionObserver` can fire
+- **Layout empty space at 1920px+**: Added `@media (min-width: 1920px)` and `@media (min-width: 2560px)` breakpoints — sidebar width, section padding, and `section-inner`/`hero-inner` max-width all scale up proportionally
+- All nav links now immediately reflect the target section on click (no observer delay)
+
+### Added — Visual & UX Features
+- **Favicon**: `assets/favicon.svg` — "R" initial in accent blue (#2E86C1) on dark navy background; linked in `<head>` with all standard format tags (PNG variants need manual generation via realfavicongenerator.net)
+- **Open Graph meta tags**: og:title, og:description, og:image, og:url, og:type — preview link di LinkedIn/WhatsApp
+- **Twitter Card meta tags**: twitter:card, twitter:title, twitter:description, twitter:image
+- **Dark / Light mode toggle**: Fixed button (kanan bawah), saves preference to `localStorage`, moon/sun SVG icons
+- **Back to Top button**: Appears after scrolling 300px, smooth scroll to top, fade-in animation
+- **Portfolio mockups**: CSS device frame mockups (phone frame for mobile apps, browser frame for web projects) di atas setiap kartu portfolio dengan warna brand masing-masing klien
+- **Tool icons grid**: Kategori Tools di Skills section sekarang menampilkan ikon dari Simple Icons CDN (Postman, VS Code, Adobe CC, OBS, MS Office) + styled text fallback (vMix, Hopscotch)
+- **Contact form**: Form Nama/Email/Pesan menggunakan Formspree (gratis 50 msg/bulan), async submit tanpa reload, pesan sukses/error, disabled state saat mengirim. Perlu setup: ganti `REPLACE_WITH_YOUR_ID` di form action
+- **Scroll reveal animations**: AOS (Animate On Scroll) via CDN — experience cards fade-up, project cards stagger, skill rows stagger, stat cards stagger, section headings fade-up
+- **Portfolio filter animation**: Grid fade-out/fade-in (200ms) saat filter berubah, menggantikan toggle display:none yang langsung
+
+### Technical
+- AOS library: `cdnjs.cloudflare.com/ajax/libs/aos/2.3.4` — respects `prefers-reduced-motion`
+- Simple Icons CDN: `cdn.simpleicons.org/{slug}/{hex}` — gratis & open source
+- `project-grid` transition: `opacity` + `translateY` untuk filter animation
+- `project-card` transition: tambah `opacity` untuk konsistensi
+
+---
+
+## [v0.5.2] — 2026-04-05
+### Fixed
+- Experience, Portfolio, Skills sections: added `.section-inner--wide` class to use full content width — eliminates empty whitespace on right side at desktop resolutions
+- CSS: added `.section-inner--wide { max-width: 100% }` override while keeping narrow (680px) default for About and Contact sections
+
+### Added
+- `.claude-prompts/` folder for cross-device Claude Code context sync:
+  - `context.md` — full project architecture, tech stack, CSS variables, file structure
+  - `progress.md` — completed checklist + remaining to-do list
+  - `prompts/general.md` — ready-to-use prompts for starting new sessions
+
+### Security
+- Full audit completed: no API keys, tokens, passwords, or credentials found in any public file
+- `.claude/` folder (contains local Windows paths) confirmed in `.gitignore` — will NOT be pushed to GitHub
+- Repo confirmed SAFE for public visibility on GitHub
+
+---
+
 ## [v0.5.1] — 2026-04-05
 ### Fixed
 - Timeline period column: changed fixed `90px` to `min-content` so dates never hide behind cards at any resolution

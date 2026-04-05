@@ -1,12 +1,16 @@
-/* Project: Rico Portfolio | Version: v0.4.0 | Updated: 2026-04-05 */
+/* Project: Rico Portfolio | Version: v0.6.0 | Updated: 2026-04-05 */
 
 /* ============================================================
    DAFTAR ISI (TABLE OF CONTENTS)
    1. IntersectionObserver — Deteksi section aktif & update nav sidebar
    2. Mobile Nav — Hamburger toggle & tutup otomatis
-   3. Portfolio Filter — Tampil/sembunyikan kartu berdasarkan kategori
+   3. Portfolio Filter — Tampil/sembunyikan kartu dengan grid fade animation
    4. Smooth Scroll — Klik link anchor dengan offset untuk mobile navbar
    5. Footer — Isi tahun otomatis
+   6. Dark / Light Mode Toggle
+   7. Back to Top Button
+   8. Contact Form (Formspree)
+   9. AOS Scroll Animations
 ============================================================ */
 
 
@@ -111,6 +115,7 @@ if (hamburger && mobileDrawer) {
 
 const filterBtns   = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
+const projectGrid  = document.querySelector('.project-grid');
 
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -122,11 +127,16 @@ filterBtns.forEach(btn => {
     /* Nilai filter: "all", "qa", atau "pm" */
     const filter = btn.dataset.filter;
 
-    projectCards.forEach(card => {
-      /* Cocokkan data-category kartu dengan filter yang dipilih */
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.classList.toggle('hidden', !match);
-    });
+    /* Fade-out grid sebentar, lalu update kartu, lalu fade-in kembali */
+    if (projectGrid) projectGrid.classList.add('filter-transitioning');
+
+    setTimeout(() => {
+      projectCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+      });
+      if (projectGrid) projectGrid.classList.remove('filter-transitioning');
+    }, 200);
 
   });
 });
@@ -148,6 +158,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     e.preventDefault();
 
+    /* FIX: Langsung tandai nav aktif saat link diklik.
+       Mengatasi bug Contact → Skills karena IntersectionObserver
+       rootMargin terlalu agresif untuk section pendek di ujung halaman. */
+    const sectionId = targetId.replace('#', '');
+    if (sectionId) setActiveNav(sectionId);
+
     /* Hitung offset: 70px di mobile (ada navbar atas), 0 di desktop */
     const isMobile = window.innerWidth <= 768;
     const offset   = isMobile ? 70 : 0;
@@ -167,4 +183,170 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const yearEl = document.getElementById('year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
+}
+
+
+/* ============================================================
+   6. DARK / LIGHT MODE TOGGLE
+   Simpan preferensi user di localStorage.
+   Tambahkan/hapus data-theme="dark" di <html>.
+============================================================ */
+
+const themeToggle = document.getElementById('themeToggle');
+const htmlEl      = document.documentElement;
+
+/* Terapkan tema tersimpan saat halaman dimuat */
+if (localStorage.getItem('theme') === 'dark') {
+  htmlEl.setAttribute('data-theme', 'dark');
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      htmlEl.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      htmlEl.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+}
+
+
+/* ============================================================
+   7. BACK TO TOP BUTTON
+   Muncul saat scroll > 300px. Klik → smooth scroll ke atas.
+============================================================ */
+
+const backToTopBtn = document.getElementById('backToTop');
+
+if (backToTopBtn) {
+  window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveNav('about');   /* Tandai nav aktif kembali ke About */
+  });
+}
+
+
+/* ============================================================
+   8. CONTACT FORM — Formspree
+   Submit async, tampilkan pesan sukses/gagal tanpa reload.
+   Ganti action URL form di HTML dengan endpoint Formspree kamu.
+============================================================ */
+
+const contactForm   = document.getElementById('contactForm');
+const formStatus    = document.getElementById('form-status');
+const formSubmitBtn = document.getElementById('form-submit');
+
+if (contactForm && formStatus) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    /* Cegah double-submit */
+    if (formSubmitBtn) {
+      formSubmitBtn.disabled = true;
+      formSubmitBtn.textContent = 'Sending...';
+    }
+    formStatus.textContent = '';
+    formStatus.className   = 'form-status';
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method:  'POST',
+        body:    new FormData(contactForm),
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (res.ok) {
+        formStatus.textContent = 'Message sent! I will get back to you soon.';
+        formStatus.className   = 'form-status success';
+        contactForm.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        formStatus.textContent = data.error || 'Oops! Something went wrong. Please try again.';
+        formStatus.className   = 'form-status error';
+      }
+    } catch {
+      formStatus.textContent = 'Oops! Network error. Please check your connection.';
+      formStatus.className   = 'form-status error';
+    } finally {
+      if (formSubmitBtn) {
+        formSubmitBtn.disabled    = false;
+        formSubmitBtn.textContent = 'Send Message';
+      }
+    }
+  });
+}
+
+
+/* ============================================================
+   9. AOS — ANIMATE ON SCROLL
+   Tambahkan data-aos ke elemen secara programatik agar
+   tidak perlu edit banyak tempat di HTML.
+   Library dimuat via CDN di index.html.
+============================================================ */
+
+function initScrollAnimations() {
+  /* Kartu experience: fade-up */
+  document.querySelectorAll('.tl-card-col').forEach((el) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-duration', '550');
+  });
+
+  /* Kartu proyek: fade-up, stagger per kolom (kiri=0, kanan=120ms) */
+  document.querySelectorAll('.project-card').forEach((el, i) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-delay', String((i % 2) * 120));
+    el.setAttribute('data-aos-duration', '550');
+  });
+
+  /* Baris skill: fade-up bertahap */
+  document.querySelectorAll('.skill-row').forEach((el, i) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-delay', String(i * 60));
+    el.setAttribute('data-aos-duration', '500');
+  });
+
+  /* Stat cards: fade-up bertahap */
+  document.querySelectorAll('.stat-card').forEach((el, i) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-delay', String(i * 100));
+    el.setAttribute('data-aos-duration', '500');
+  });
+
+  /* Section headings: fade-up */
+  document.querySelectorAll('.section-heading').forEach((el) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-duration', '500');
+  });
+
+  /* Contact cards: fade-up */
+  document.querySelectorAll('.contact-card').forEach((el, i) => {
+    el.setAttribute('data-aos', 'fade-up');
+    el.setAttribute('data-aos-delay', String(i * 80));
+    el.setAttribute('data-aos-duration', '500');
+  });
+
+  /* Inisialisasi AOS setelah semua atribut terpasang */
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 600,
+      easing:   'ease-out',
+      once:     true,          /* Animasi hanya sekali */
+      offset:   60,
+      disable:  window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    });
+  }
+}
+
+/* Jalankan setelah DOM sepenuhnya siap */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
+} else {
+  initScrollAnimations();
 }
