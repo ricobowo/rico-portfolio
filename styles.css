@@ -1,0 +1,1112 @@
+/* Project: Rico Portfolio | Version: v0.5.1 | Updated: 2026-04-05 */
+
+/* ============================================================
+   DAFTAR ISI (TABLE OF CONTENTS)
+   1.  CSS Variables (Color System)
+   2.  Reset & Base
+   3.  Layout Utama (CSS Grid)
+   4.  Sidebar
+   5.  Navigasi Sidebar
+   6.  Sidebar Footer (Social, CV, Version)
+   7.  Main Content Area
+   8.  Section Wrapper
+   9.  Tombol (Buttons)
+   10. Tag / Pill
+   11. Hero Section
+   12. About Section
+   13. Experience / Timeline
+   14. Portfolio Section
+   15. Skills Section
+   16. Contact Section
+   17. Footer
+   18. Mobile Top Navbar
+   19. Responsive — Tablet (≤ 1024px)
+   20. Responsive — Mobile (≤ 768px)
+============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES — Sistem warna terpusat
+   Ubah di sini → seluruh halaman ikut berubah
+============================================================ */
+:root {
+  /* Sidebar (gelap) */
+  --sidebar-bg:         #0D1B2A;  /* Background sidebar utama */
+  --sidebar-text:       #FFFFFF;  /* Teks dan ikon di sidebar */
+  --sidebar-muted:      #94A3B8;  /* Teks sekunder/redup di sidebar */
+  --sidebar-nav-active: #2E86C1;  /* Warna aksen saat link aktif */
+  --sidebar-hover:      rgba(255,255,255,.06); /* Background hover link nav */
+  --sidebar-border:     rgba(255,255,255,.08); /* Garis pemisah di sidebar */
+
+  /* Konten (terang) */
+  --content-bg:   #F8F9FA;  /* Background area konten kanan */
+  --content-text: #1B2631;  /* Teks utama konten */
+  --content-muted:#5D6D7E;  /* Teks sekunder konten */
+
+  /* Warna aksen */
+  --accent:       #2E86C1;  /* Biru aksen utama */
+  --accent-light: #EBF5FB;  /* Biru sangat pucat — background tag/hover */
+  --accent-dark:  #1A5276;  /* Biru gelap — heading, hover tombol */
+
+  /* Kartu & Border */
+  --card-bg:      #FFFFFF;
+  --card-border:  #E8EDF2;
+  --card-hover-bg:#F0F7FF;  /* Background kartu saat di-hover */
+
+  /* Tag / Pill */
+  --tag-bg:       #EBF5FB;
+  --tag-text:     #1A5276;
+  --tag-border:   #AED6F1;
+  --tag-hover-bg: #D6EAF8;
+
+  /* Tipografi */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Ukuran & Radius */
+  --sidebar-width: 260px;
+  --r-sm:  4px;
+  --r:     8px;
+  --r-lg:  12px;
+  --r-xl:  20px;
+  --r-pill:999px;
+
+  /* Transisi standar */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur:  .2s;
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   Hapus margin/padding bawaan browser, set box-sizing
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth; /* Scroll halus saat klik link anchor */
+}
+
+body {
+  font-family: var(--font);
+  color: var(--content-text);
+  background: var(--content-bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul { list-style: none; }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+/* ============================================================
+   3. LAYOUT UTAMA — CSS Grid
+   Sidebar tetap di kiri (260px) | Konten scrollable di kanan (1fr)
+============================================================ */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+
+/* ============================================================
+   4. SIDEBAR
+   Background gelap, posisi sticky agar tidak ikut scroll
+============================================================ */
+.sidebar {
+  position: sticky;           /* Tetap di layar saat konten kanan di-scroll */
+  top: 0;
+  height: 100vh;              /* Tinggi penuh viewport */
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 48px 32px;
+  overflow-y: auto;           /* Scroll internal jika konten sidebar panjang */
+  flex-shrink: 0;
+}
+
+/* Nama pemilik portofolio — link ke hero, teks putih besar */
+.sidebar-name {
+  display: block;
+  font-size: 1.375rem;        /* 22px */
+  font-weight: 800;
+  color: var(--sidebar-text);
+  letter-spacing: -.025em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  transition: color var(--dur) var(--ease);
+}
+.sidebar-name:hover { color: var(--sidebar-nav-active); }
+
+/* Jabatan di bawah nama */
+.sidebar-title {
+  font-size: .8125rem;        /* 13px */
+  font-weight: 600;
+  color: var(--sidebar-nav-active);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Tagline satu baris */
+.sidebar-tagline {
+  font-size: .8125rem;
+  color: var(--sidebar-muted);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   5. NAVIGASI SIDEBAR
+   Link dengan border kiri animated saat section aktif
+============================================================ */
+.sidebar-nav {
+  margin-top: 48px;
+  flex: 1;                    /* Mengisi sisa ruang antara identitas dan footer */
+}
+
+.sidebar-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Setiap link nav */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sidebar-muted);
+  border-left: 3px solid transparent; /* Border kiri transparan — jadi aksen saat aktif */
+  transition: color var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+
+/* Hover: teks putih + background semi-transparan */
+.nav-link:hover {
+  color: var(--sidebar-text);
+  background: var(--sidebar-hover);
+}
+
+/* Aktif: border kiri aksen biru, teks putih bold */
+.nav-link.active {
+  color: var(--sidebar-text);
+  border-left-color: var(--sidebar-nav-active);
+  background: var(--sidebar-hover);
+  font-weight: 700;
+}
+
+/* Titik indikator kecil di kiri label (dekoratif) */
+.nav-indicator {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sidebar-muted);
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+  flex-shrink: 0;
+}
+.nav-link:hover .nav-indicator,
+.nav-link.active .nav-indicator {
+  background: var(--sidebar-nav-active);
+  transform: scale(1.4);      /* Titik membesar saat aktif */
+}
+
+
+/* ============================================================
+   6. SIDEBAR FOOTER — Social icons, CV link, Version badge
+============================================================ */
+.sidebar-footer {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Baris ikon sosial */
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+/* Tiap ikon sosial — kotak kecil dengan border subtle */
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r);
+  color: var(--sidebar-muted);
+  border: 1px solid var(--sidebar-border);
+  transition: color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+.social-icon:hover {
+  color: var(--sidebar-text);
+  border-color: rgba(255,255,255,.2);
+  background: var(--sidebar-hover);
+  transform: translateY(-2px);
+}
+
+/* Link Download CV — teks kecil dengan panah */
+.cv-link {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--sidebar-muted);
+  letter-spacing: .04em;
+  transition: color var(--dur) var(--ease);
+}
+.cv-link:hover { color: var(--sidebar-nav-active); }
+
+/* Badge versi di bawah sidebar */
+.sidebar-version {
+  font-size: .6875rem;        /* 11px */
+  font-weight: 700;
+  color: var(--sidebar-muted);
+  letter-spacing: .08em;
+  opacity: .7;
+}
+
+
+/* ============================================================
+   7. MAIN CONTENT AREA
+   Area kanan yang bisa di-scroll
+============================================================ */
+.main-content {
+  min-width: 0;               /* Mencegah overflow di CSS Grid */
+  background: var(--content-bg);
+}
+
+
+/* ============================================================
+   8. SECTION WRAPPER
+   Padding dan max-width konsisten untuk semua section
+============================================================ */
+.section {
+  padding: 96px 72px;
+}
+
+/* Section bernomor genap: background sedikit lebih terang untuk variasi */
+.section:nth-of-type(even) {
+  background: #FFFFFF;
+}
+
+/* Pembungkus konten dalam dengan max-width agar mudah dibaca */
+.section-inner {
+  max-width: 720px;
+}
+
+/* Chip label kecil di atas heading (mis. "About", "Career") */
+.section-chip {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: var(--r-pill);
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--tag-border);
+  margin-bottom: 12px;
+}
+
+/* Heading utama tiap section */
+.section-heading {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  color: var(--accent-dark);
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+
+
+/* ============================================================
+   9. TOMBOL (BUTTONS)
+   Dua varian: Primary (solid navy) dan Outline (border navy)
+============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border-radius: var(--r);
+  font-family: var(--font);
+  font-size: .9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              transform .15s var(--ease);
+  white-space: nowrap;
+}
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Tombol solid: background navy gelap, hover → biru aksen */
+.btn-primary {
+  background: var(--accent-dark);
+  color: #fff;
+  border-color: var(--accent-dark);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Tombol outline: transparan dengan border navy */
+.btn-outline {
+  background: transparent;
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+.btn-outline:hover {
+  background: var(--accent-dark);
+  color: #fff;
+}
+
+
+/* ============================================================
+   10. TAG / PILL
+   Dipakai di Experience, Portfolio, dan Skills
+   Style konsisten: pill dengan background biru muda
+============================================================ */
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-size: .75rem;          /* 12px sesuai spec */
+  font-weight: 600;
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  border: 1px solid var(--tag-border);
+  transition: background var(--dur), border-color var(--dur);
+}
+.tag:hover {
+  background: var(--tag-hover-bg);
+  border-color: var(--accent);
+}
+
+/* Grup tag — flex wrap agar wrap ke baris baru */
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+
+/* ============================================================
+   11. HERO SECTION
+============================================================ */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(150deg, var(--accent-light) 0%, var(--content-bg) 55%);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.hero-inner {
+  max-width: 660px;
+}
+
+/* Badge pill kecil "HELLO, WORLD." */
+.hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: var(--r-pill);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--tag-border);
+  margin-bottom: 20px;
+}
+
+/* Headline H1 — besar dan bold */
+.hero-headline {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--accent-dark);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+/* Kata kunci berwarna aksen biru */
+.accent-text { color: var(--accent); }
+
+/* Subtitle di bawah headline */
+.hero-sub {
+  font-size: 1.0625rem;
+  color: var(--content-muted);
+  max-width: 520px;
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+/* Wrapper dua tombol CTA */
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+/* --- Baris tiga stat card --- */
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Tiap stat card: angka besar + label kecil */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 22px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--r);
+  flex: 1;
+  min-width: 110px;
+  transition: transform var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.stat-card:hover {
+  transform: translateY(-2px);    /* Naik sedikit saat hover */
+  border-color: var(--tag-border);
+}
+
+/* Angka besar berwarna aksen */
+.stat-num {
+  font-size: 1.75rem;             /* 28px sesuai spec */
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+
+/* Label kecil muted uppercase */
+.stat-label {
+  font-size: .6875rem;            /* 12px */
+  font-weight: 600;
+  color: var(--content-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+
+/* ============================================================
+   12. ABOUT SECTION
+============================================================ */
+
+/* Grid: satu kolom penuh karena foto disembunyikan */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 1rem;
+  color: var(--content-muted);
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+/* Foto profil — disembunyikan sementara, tampilkan kembali saat foto tersedia
+   dengan menghapus display: none di bawah ini */
+.about-photo {
+  display: none;
+}
+
+/* Placeholder foto: kotak persegi dengan inisial */
+.photo-box {
+  width: 100%;
+  aspect-ratio: 1;              /* Selalu persegi */
+  border-radius: var(--r-xl);
+  background: linear-gradient(135deg, var(--accent-light), var(--tag-hover-bg));
+  border: 2px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.photo-box img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.photo-box span {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+  letter-spacing: .05em;
+}
+
+
+/* ============================================================
+   13. EXPERIENCE / TIMELINE
+   Dua kolom: periode di kiri, kartu di kanan
+   Hover: border kiri aksen muncul, background sedikit berubah
+   TANPA box-shadow — hanya border dan background
+============================================================ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Satu baris timeline: periode | kartu
+   min-content: kolom kiri hanya selebar teks periode, tidak pernah terpotong */
+.tl-row {
+  display: grid;
+  grid-template-columns: min-content 1fr; /* Dinamis: kiri menyesuaikan lebar teks */
+  gap: 24px;
+  padding-bottom: 4px;
+}
+
+/* Kolom kiri: periode tahun */
+.tl-period-col {
+  padding-top: 20px;
+  text-align: right;
+  min-width: 90px; /* Lebar minimum agar teks tidak terlalu sempit */
+}
+
+.tl-period {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--content-muted);
+  letter-spacing: .04em;
+  white-space: nowrap; /* Periode tidak wrap ke baris baru */
+  display: block;
+}
+
+/* Kolom kanan: kartu konten */
+.tl-card-col {
+  padding-bottom: 32px;
+}
+
+/* Kartu posisi kerja */
+.tl-card {
+  padding: 22px 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid transparent;  /* Border kiri — muncul saat hover */
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+/* Hover: border kiri aksen, background sedikit biru, geser kanan */
+.tl-card:hover {
+  border-color: var(--card-border);
+  border-left-color: var(--accent);
+  background: var(--card-hover-bg);
+  transform: translateX(4px);
+}
+
+/* Baris header kartu */
+.tl-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tl-role {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--content-text);
+}
+
+/* Nama perusahaan berwarna aksen */
+.tl-company {
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+/* Daftar pencapaian/tanggung jawab */
+.tl-bullets {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.tl-bullets li {
+  font-size: .9375rem;
+  color: var(--content-muted);
+  line-height: 1.65;
+  padding-left: 16px;
+  position: relative;
+}
+/* Ikon segitiga kecil sebagai bullet */
+.tl-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  color: var(--accent);
+  font-size: .65rem;
+}
+
+
+/* ============================================================
+   14. PORTFOLIO SECTION
+============================================================ */
+
+/* Baris tombol filter */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.filter-btn {
+  padding: 6px 18px;
+  border-radius: var(--r-pill);
+  font-family: var(--font);
+  font-size: .8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--card-border);
+  background: transparent;
+  color: var(--content-muted);
+  transition: background var(--dur), border-color var(--dur), color var(--dur);
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: #fff;
+}
+
+/* Grid dua kolom, satu kolom di mobile */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* Kartu proyek individual */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;                  /* Padding 20px sesuai spec */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid transparent;
+  border-radius: var(--r-lg);     /* border-radius 12px sesuai spec */
+  transition: border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              transform .25s var(--ease);
+  cursor: default;
+}
+/* Hover: naik 4px + border kiri aksen + background sedikit biru */
+.project-card:hover {
+  transform: translateY(-4px);    /* translateY(-4px) sesuai spec */
+  border-left-color: var(--accent);
+  background: var(--card-hover-bg);
+}
+
+/* Class .hidden ditambahkan JavaScript saat filter tidak cocok */
+.project-card.hidden { display: none; }
+
+/* Baris atas kartu: badge + link eksternal */
+.project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Badge kategori berwarna berbeda per jenis */
+.project-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.project-badge.qa {
+  color: #1A5276;
+  background: #EBF5FB;
+  border: 1px solid #AED6F1;
+}
+.project-badge.pm {
+  color: #1D6A39;
+  background: #EAFAF1;
+  border: 1px solid #A9DFBF;
+}
+
+/* Link eksternal opsional */
+.ext-link {
+  font-size: 1rem;
+  color: var(--content-muted);
+  transition: color var(--dur), transform var(--dur);
+}
+.ext-link:hover { color: var(--accent); transform: translate(2px, -2px); }
+
+.project-title {
+  font-size: 1rem;              /* 16px sesuai spec */
+  font-weight: 700;
+  color: var(--content-text);
+  line-height: 1.3;
+}
+
+.project-desc {
+  font-size: .875rem;           /* 14px sesuai spec */
+  color: var(--content-muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* Baris metrik kecil (angka pencapaian singkat) */
+.metrics-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.metric {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--tag-border);
+  border-radius: var(--r-pill);
+  padding: 2px 9px;
+}
+
+
+/* ============================================================
+   15. SKILLS SECTION
+   Layout: label kategori di kiri, pills di kanan
+============================================================ */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Satu baris skill: nama kategori | grup tag */
+.skill-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--card-border);
+}
+.skill-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Label kategori: bold, warna aksen */
+.skill-category {
+  font-size: .875rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  padding-top: 4px;             /* Sejajar dengan tag */
+}
+
+
+/* ============================================================
+   16. CONTACT SECTION
+============================================================ */
+.contact-intro {
+  font-size: 1rem;
+  color: var(--content-muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+}
+
+/* Kartu kontak — flex horizontal: ikon | teks | panah */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid transparent;
+  border-radius: var(--r-lg);
+  color: var(--content-text);
+  transition: border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+/* Hover: border kiri aksen, naik sedikit */
+.contact-card:hover {
+  border-left-color: var(--accent);
+  background: var(--card-hover-bg);
+  transform: translateX(4px);
+  color: var(--content-text);
+}
+
+/* Kotak ikon biru muda */
+.contact-icon {
+  width: 42px; height: 42px;
+  border-radius: var(--r);
+  background: var(--accent-light);
+  border: 1px solid var(--tag-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.contact-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-label {
+  font-size: .6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--content-muted);
+}
+
+.contact-value {
+  font-size: .9375rem;
+  font-weight: 500;
+  color: var(--content-text);
+}
+
+/* Panah kanan — geser saat hover */
+.contact-arrow {
+  font-size: 1.125rem;
+  color: var(--content-muted);
+  transition: color var(--dur), transform var(--dur);
+  flex-shrink: 0;
+}
+.contact-card:hover .contact-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+
+/* ============================================================
+   17. FOOTER
+============================================================ */
+.footer {
+  padding: 36px 72px;
+  border-top: 1px solid var(--card-border);
+}
+
+.footer p {
+  font-size: .8125rem;
+  color: var(--content-muted);
+  text-align: center;
+}
+
+/* Badge versi footer — disembunyikan dari pengunjung.
+   Versi tetap tersimpan di: kode header file, sidebar (v0.5.1), dan CHANGELOG.md
+   Untuk menampilkan kembali, ubah display: none → display: inline-block */
+.footer-version {
+  display: none;
+}
+
+
+/* ============================================================
+   18. MOBILE TOP NAVBAR
+   Hanya terlihat di layar ≤ 768px — menggantikan sidebar
+============================================================ */
+.mobile-nav {
+  display: none;                /* Tersembunyi di desktop */
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 56px;
+  background: var(--sidebar-bg);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+
+.mobile-logo {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--sidebar-text);
+}
+.mobile-logo span { color: var(--sidebar-nav-active); }
+
+/* Tombol hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px; height: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.hamburger span {
+  display: block; height: 2px;
+  background: var(--sidebar-text);
+  border-radius: 2px;
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+/* Animasi hamburger → X saat menu terbuka */
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Drawer menu dropdown */
+.mobile-drawer {
+  position: fixed;
+  top: 56px; left: 0; right: 0;
+  background: var(--sidebar-bg);
+  padding: 12px 20px 24px;
+  transform: translateY(-110%);   /* Tersembunyi di atas */
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  z-index: 199;
+}
+/* Class .open ditambahkan JS saat hamburger diklik */
+.mobile-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mob-link {
+  display: block;
+  padding: 12px 8px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--sidebar-muted);
+  border-bottom: 1px solid var(--sidebar-border);
+  transition: color var(--dur);
+}
+.mob-link:last-of-type { border-bottom: none; }
+.mob-link:hover { color: var(--sidebar-text); }
+
+/* Tombol CV di drawer mobile */
+.mob-cv {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: var(--sidebar-nav-active);
+}
+
+
+/* ============================================================
+   19. RESPONSIVE — TABLET (≤ 1024px)
+   Kurangi lebar sidebar dan padding konten
+============================================================ */
+@media (max-width: 1024px) {
+  :root { --sidebar-width: 220px; }
+  .sidebar { padding: 36px 24px; }
+  .section { padding: 72px 48px; }
+  .footer  { padding: 28px 48px; }
+
+  /* Grid portfolio: tetap 2 kolom tapi lebih fleksibel */
+  .project-grid { gap: 14px; }
+}
+
+
+/* ============================================================
+   20. RESPONSIVE — MOBILE (≤ 768px)
+   Sembunyikan sidebar, tampilkan mobile navbar
+   Ubah semua grid jadi 1 kolom
+============================================================ */
+@media (max-width: 768px) {
+  /* Grid layout jadi 1 kolom penuh */
+  .layout { grid-template-columns: 1fr; }
+
+  /* Sembunyikan sidebar desktop */
+  .sidebar { display: none; }
+
+  /* Tampilkan navbar mobile */
+  .mobile-nav { display: flex; }
+
+  /* Beri ruang atas untuk navbar mobile */
+  .main-content { padding-top: 56px; }
+
+  /* Kurangi padding section */
+  .section { padding: 56px 20px; }
+  .footer  { padding: 24px 20px; }
+
+  /* Hero: lebih compact di mobile */
+  .hero-section { min-height: calc(100vh - 56px); }
+  .hero-cta { flex-direction: column; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+  .stats-row { gap: 10px; }
+  .stat-card { min-width: 0; }
+
+  /* About: satu kolom */
+  .about-grid { grid-template-columns: 1fr; gap: 24px; }
+  .about-photo { position: static; max-width: 150px; margin-inline: auto; }
+
+  /* Timeline: satu kolom */
+  .tl-row { grid-template-columns: 1fr; gap: 6px; }
+  .tl-period-col { text-align: left; padding-top: 0; }
+
+  /* Portfolio grid: satu kolom */
+  .project-grid { grid-template-columns: 1fr; }
+
+  /* Skills: satu kolom */
+  .skill-row { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Contact: full width */
+  .contact-cards { max-width: 100%; }
+}
