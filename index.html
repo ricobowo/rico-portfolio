@@ -1,4 +1,4 @@
-<!-- Project: Rico Portfolio | Version: v0.6.0 | Updated: 2026-04-05 -->
+<!-- Project: Rico Portfolio | Version: v0.6.1 | Updated: 2026-04-05 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -145,7 +145,7 @@
         </a>
 
         <!-- Badge versi kecil di pojok bawah sidebar -->
-        <span class="sidebar-version" id="version-badge">v0.6.0</span>
+        <span class="sidebar-version" id="version-badge">v0.6.1</span>
 
       </div>
     </aside>
@@ -716,8 +716,9 @@
       </section>
 
       <!-- ===== CONTACT ===== -->
+      <!-- section-inner--wide: dua kolom butuh lebar lebih dari 680px default -->
       <section id="contact" class="section" style="scroll-margin-top: 80px;">
-        <div class="section-inner">
+        <div class="section-inner section-inner--wide">
           <span class="section-chip">Let's Talk</span>
           <h2 class="section-heading">Get In Touch</h2>
 
@@ -727,78 +728,82 @@
             or just want to say hi, my inbox is always open.
           </p>
 
-          <div class="contact-cards">
+          <!-- Layout dua kolom: Email+LinkedIn kiri, Form kanan -->
+          <div class="contact-layout">
 
-            <!-- Kartu Email -->
-            <a href="mailto:ricobowo10@gmail.com" class="contact-card">
-              <div class="contact-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-              </div>
-              <div class="contact-text">
-                <span class="contact-label">Email</span>
-                <span class="contact-value">ricobowo10@gmail.com</span>
-              </div>
-              <span class="contact-arrow">→</span>
-            </a>
+            <!-- Kolom kiri: Email & LinkedIn cards -->
+            <div class="contact-left">
+              <div class="contact-cards">
 
-            <!-- Kartu LinkedIn -->
-            <a href="https://linkedin.com/in/rico-tri-wibowo" target="_blank" rel="noopener" class="contact-card">
-              <div class="contact-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                  <rect x="2" y="9" width="4" height="12"/>
-                  <circle cx="4" cy="4" r="2"/>
-                </svg>
-              </div>
-              <div class="contact-text">
-                <span class="contact-label">LinkedIn</span>
-                <span class="contact-value">linkedin.com/in/rico-tri-wibowo</span>
-              </div>
-              <span class="contact-arrow">→</span>
-            </a>
+                <!-- Kartu Email -->
+                <a href="mailto:ricobowo10@gmail.com" class="contact-card">
+                  <div class="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">ricobowo10@gmail.com</span>
+                  </div>
+                  <span class="contact-arrow">→</span>
+                </a>
 
-          </div><!-- akhir .contact-cards -->
+                <!-- Kartu LinkedIn -->
+                <a href="https://linkedin.com/in/rico-tri-wibowo" target="_blank" rel="noopener" class="contact-card">
+                  <div class="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">linkedin.com/in/rico-tri-wibowo</span>
+                  </div>
+                  <span class="contact-arrow">→</span>
+                </a>
 
-          <!-- ===== CONTACT FORM =====
-               Menggunakan Formspree (formspree.io) — gratis sampai 50 pesan/bulan.
-               Langkah setup:
-               1. Daftar di formspree.io → buat form baru
-               2. Ganti "REPLACE_WITH_YOUR_ID" di bawah dengan Form ID kamu
-               3. Test pengiriman dari halaman live
-          -->
-          <hr class="contact-divider" />
-          <p class="contact-form-heading">Or send me a message directly</p>
+              </div><!-- akhir .contact-cards -->
+            </div><!-- akhir .contact-left -->
 
-          <form class="contact-form" id="contactForm"
-                action="https://formspree.io/f/xzdkkwav"
-                method="POST">
+            <!-- Kolom kanan: Form kontak Formspree -->
+            <!-- Setup: daftar di formspree.io, buat form, Form ID sudah diset di action URL -->
+            <div class="contact-right">
+              <p class="contact-form-heading">Or send me a message directly</p>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="contact-name">Name</label>
-                <input class="form-input" type="text" id="contact-name" name="name"
-                       required placeholder="Your name" autocomplete="name" />
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="contact-email">Email</label>
-                <input class="form-input" type="email" id="contact-email" name="email"
-                       required placeholder="your@email.com" autocomplete="email" />
-              </div>
-            </div>
+              <form class="contact-form" id="contactForm"
+                    action="https://formspree.io/f/xzdkkwav"
+                    method="POST">
 
-            <div class="form-group">
-              <label class="form-label" for="contact-message">Message</label>
-              <textarea class="form-input form-textarea" id="contact-message" name="message"
-                        required rows="4" placeholder="Your message..."></textarea>
-            </div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label" for="contact-name">Name</label>
+                    <input class="form-input" type="text" id="contact-name" name="name"
+                           required placeholder="Your name" autocomplete="name" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="contact-email">Email</label>
+                    <input class="form-input" type="email" id="contact-email" name="email"
+                           required placeholder="your@email.com" autocomplete="email" />
+                  </div>
+                </div>
 
-            <button type="submit" class="btn btn-primary" id="form-submit">Send Message</button>
-            <p class="form-status" id="form-status" aria-live="polite"></p>
+                <div class="form-group">
+                  <label class="form-label" for="contact-message">Message</label>
+                  <textarea class="form-input form-textarea" id="contact-message" name="message"
+                            required rows="5" placeholder="Your message..."></textarea>
+                </div>
 
-          </form>
+                <button type="submit" class="btn btn-primary" id="form-submit">Send Message</button>
+                <p class="form-status" id="form-status" aria-live="polite"></p>
+
+              </form>
+            </div><!-- akhir .contact-right -->
+
+          </div><!-- akhir .contact-layout -->
 
         </div>
       </section>
@@ -806,7 +811,7 @@
       <!-- ===== FOOTER ===== -->
       <!-- id="year" diisi otomatis oleh JavaScript dengan tahun sekarang -->
       <footer class="footer">
-        <p>Designed &amp; Built by Rico Tri Wibowo &mdash; &copy; <span id="year"></span> &nbsp;|&nbsp; <span class="footer-version">v0.6.0</span></p>
+        <p>Designed &amp; Built by Rico Tri Wibowo &mdash; &copy; <span id="year"></span> &nbsp;|&nbsp; <span class="footer-version">v0.6.1</span></p>
       </footer>
 
     </main><!-- akhir .main-content -->

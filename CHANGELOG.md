@@ -5,6 +5,21 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.6.1] — 2026-04-05
+### Fixed
+- **Layout centering**: Tambah `margin: 0 auto; width: 100%` ke `.section-inner` dan `.hero-inner` — konten sekarang ter-center di sisa area kanan (bukan menempel ke kiri) di semua resolusi termasuk FHD dan 2K
+- **Contact two-column layout**: Email & LinkedIn cards sekarang berdampingan dengan form kontak di desktop (`grid-template-columns: 1fr 1.5fr`); tablet ≤1024px kembali ke satu kolom
+- **Contact section width**: Ubah `section-inner` → `section-inner--wide` agar dua kolom kontak punya cukup ruang
+
+### Added
+- `assets/og-image.svg` — template OG image (1200×630). Perlu dikonversi ke JPG/PNG sebelum OG preview berfungsi (gunakan browser "Save as image" atau tools online)
+
+### Notes
+- **Favicon**: `assets/favicon.svg` sudah ada dan berfungsi di Chrome/Firefox/Edge modern. PNG variants (`favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`) perlu di-generate manual via realfavicongenerator.net
+- **Open Graph**: Meta tags sudah benar di `<head>`. Butuh 2 hal sebelum preview berfungsi: (1) site live di Vercel, (2) `assets/og-image.jpg` — convert dari `og-image.svg`
+
+---
+
 ## [v0.6.0] — 2026-04-05
 ### Fixed
 - **Contact nav bug**: Clicking "Contact" in sidebar nav was activating "Skills" instead — fixed by calling `setActiveNav()` immediately on link click, before `IntersectionObserver` can fire

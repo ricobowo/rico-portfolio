@@ -1,4 +1,4 @@
-/* Project: Rico Portfolio | Version: v0.6.0 | Updated: 2026-04-05 */
+/* Project: Rico Portfolio | Version: v0.6.1 | Updated: 2026-04-05 */
 
 /* ============================================================
    DAFTAR ISI (TABLE OF CONTENTS)
@@ -328,14 +328,18 @@ img {
 
 /* Pembungkus konten dalam.
    Default: max-width 680px untuk section yang teks-berat (About, Contact) agar mudah dibaca.
+   margin: 0 auto → konten selalu ter-center di area kanan, tidak menempel di kiri.
    Section dengan banyak kolom (Experience, Portfolio, Skills) override ini dengan .section-inner--wide */
 .section-inner {
   max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* Override untuk section yang butuh lebar penuh — Experience, Portfolio, Skills */
 .section-inner--wide {
   max-width: 100%;
+  margin: 0 auto;
 }
 
 /* Chip label kecil di atas heading (mis. "About", "Career") */
@@ -453,6 +457,8 @@ img {
 
 .hero-inner {
   max-width: 660px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* Badge pill kecil "HELLO, WORLD." */
@@ -1084,6 +1090,9 @@ img {
 
   /* Grid portfolio: tetap 2 kolom tapi lebih fleksibel */
   .project-grid { gap: 14px; }
+
+  /* Contact: tumpuk vertikal di tablet */
+  .contact-layout { grid-template-columns: 1fr; gap: 32px; }
 }
 
 
@@ -1526,4 +1535,32 @@ img {
 /* Mobile: form jadi satu kolom */
 @media (max-width: 768px) {
   .form-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ============================================================
+   30. CONTACT LAYOUT — Dua kolom di desktop
+   Kiri: Email & LinkedIn cards | Kanan: Form kontak
+   Tablet ≤ 1024px & Mobile: menumpuk vertikal
+============================================================ */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;  /* Kiri sedikit lebih sempit dari kanan */
+  gap: 48px;
+  align-items: start;
+}
+
+/* Kolom kiri: hapus max-width bawaan contact-cards */
+.contact-layout .contact-cards {
+  max-width: none;
+}
+
+/* Kolom kanan: hapus max-width bawaan contact-form */
+.contact-layout .contact-form {
+  max-width: none;
+}
+
+/* Heading di atas form di kolom kanan */
+.contact-right .contact-form-heading {
+  margin-bottom: 20px;
 }
