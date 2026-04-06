@@ -5,6 +5,19 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.6.2] — 2026-04-06
+### Fixed
+- **Favicon**: Penyesuaian favicon yang sebelumnya terbaca `assets/favicon_io/favicon-16x16.png` dan `assets/favicon_io/favicon-32x32.png`
+- **Open Graph**: Convert `assets/og-image.jpg` ke `assets/og.png` 
+  — OG preview sekarang berfungsi saat link dibagikan di WhatsApp, LinkedIn, dan media sosial lainnya
+- **Icon Skill Tools**: Ada beberapa yang tidak terbaca iconnya jadi dibuat menggunakan `tools-icon-text` terlebih dahulu
+
+### Added
+- **Asset CV**: Tambahkan file CV terbaru (`assets/Rico_Tri_Wibowo_CV.pdf`) 
+  — tombol Download CV sekarang mengarah ke file yang sudah diperbarui
+
+---
+
 ## [v0.6.1] — 2026-04-05
 ### Fixed
 - **Layout centering**: Tambah `margin: 0 auto; width: 100%` ke `.section-inner` dan `.hero-inner` — konten sekarang ter-center di sisa area kanan (bukan menempel ke kiri) di semua resolusi termasuk FHD dan 2K
