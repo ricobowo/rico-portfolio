@@ -1,6 +1,19 @@
 ---
+/**
+ * SocialIcon.astro — Pemilih ikon SVG per platform sosial media
+ *
+ * Menerima satu prop `icon` dan merender SVG inline yang sesuai.
+ * Semua ikon menggunakan stroke (garis), bukan fill (isian), agar konsisten.
+ * Ukuran 20×20px — pas di dalam tombol 40×40px dari Socials.astro.
+ *
+ * Cara menambah ikon baru:
+ *   1. Tambahkan key baru ke union type di interface Props
+ *   2. Tambahkan case baru di switch statement
+ *   3. Tambahkan key yang sama ke interface Social di Socials.astro
+ */
+
 interface Props {
-    icon: 'linkedIn' | 'email' | 'twitter' | 'instagram' | 'github';
+    icon: 'linkedIn' | 'email' | 'twitter' | 'instagram' | 'github'; // Harus cocok dengan Socials.astro
 };
 
 const { icon } = Astro.props as Props;
@@ -8,6 +21,8 @@ const { icon } = Astro.props as Props;
 
 {(() => {
     switch (icon) {
+
+        // Ikon LinkedIn — tampilan jaringan profesional
         case 'linkedIn':
             return (
                 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -16,6 +31,8 @@ const { icon } = Astro.props as Props;
                     <circle cx="4" cy="4" r="2"></circle>
                 </svg>
             );
+
+        // Ikon Email — bentuk amplop
         case 'email':
             return (
                 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -23,26 +40,36 @@ const { icon } = Astro.props as Props;
                     <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
             );
+
+        // Ikon Twitter / X — logo X dua garis diagonal bersilang
         case 'twitter':
             return (
                 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768M20 4l-6.768 6.768"></path>
+                    <path d="M4 4l11.733 16H20L8.267 4z"></path>   {/* Garis diagonal kiri */}
+                    <path d="M4 20l6.768-6.768"></path>             {/* Lengan kiri bawah */}
+                    <path d="M20 4l-6.768 6.768"></path>            {/* Lengan kanan atas */}
                 </svg>
             );
+
+        // Ikon Instagram — kotak membulat + lingkaran kamera + titik
         case 'instagram':
             return (
                 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect> {/* Bingkai luar membulat */}
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path> {/* Lingkaran lensa */}
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>             {/* Titik kanan atas */}
                 </svg>
             );
+
+        // Ikon GitHub — bentuk cabang repositori
         case 'github':
             return (
                 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                 </svg>
             );
+
+        // Fallback — jika key tidak dikenali, tidak merender apapun
         default:
             return null;
     }

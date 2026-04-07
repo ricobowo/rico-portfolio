@@ -1,34 +1,55 @@
 ---
+/**
+ * Layout.astro — Shell HTML utama + semua meta tag SEO
+ *
+ * Setiap halaman Astro dibungkus komponen ini.
+ * Berisi: DOCTYPE, <head> lengkap, dan <body> dengan <slot />.
+ *
+ * <slot /> adalah tempat di mana konten halaman (index.astro) dimasukkan.
+ *
+ * Cara update meta tag: ubah variabel-variabel di blok frontmatter di bawah.
+ */
+
 import '../styles/global.scss';
 
+// URL dasar website — ubah setelah domain production ditentukan
 const domainBaseURL = 'https://rico-tri-wibowo.vercel.app';
+// URL gambar Open Graph — dipakai saat link dibagikan di WhatsApp/LinkedIn/Twitter
 const ogImageUrl    = 'https://rico-tri-wibowo.vercel.app/img/meta.png';
 
+// Informasi penulis / pemilik website
 const authorPublisher   = 'Rico Tri Wibowo';
+// Kode wilayah geografis (ID-JB = Indonesia, Jawa Barat)
 const geoRegion         = 'ID-JB';
 
+// Judul halaman yang tampil di tab browser dan hasil pencarian Google
 const seoTitle          = 'Rico Tri Wibowo | QA Engineer & Project Manager';
-const seoDescription    = 'QA Engineer and Project Manager with 5+ years of experience. Skilled in test planning, bug tracking, API testing, and delivering 15+ projects across mobile and web platforms.';
-const seoKeywords       = 'QA Engineer, Project Manager, Quality Assurance, Rico Tri Wibowo, Bandung, Indonesia, Rolling Glory, Telkom University, PSI Indonesia, Test Cases, API Testing, Postman, JIRA';
+// Deskripsi singkat yang tampil di bawah judul di hasil Google
+const seoDescription    = 'QA Engineer dan Project Manager dengan 5+ tahun pengalaman. Spesialis dalam perencanaan pengujian, pelaporan bug, API testing, dan menyelesaikan 15+ proyek di platform mobile dan web.';
+// Kata kunci untuk mesin pencari (tidak terlalu berpengaruh di Google modern, tapi tetap disertakan)
+const seoKeywords       = 'QA Engineer, Project Manager, Quality Assurance, Rico Tri Wibowo, Bandung, Indonesia, Rolling Glory, Telkom University, PSI Indonesia, Test Case, API Testing, Postman, JIRA';
 
+// Data kartu Twitter — dipakai saat link dibagikan di Twitter/X
 const twitter = {
     title:          seoTitle,
     description:    seoDescription,
     image:          ogImageUrl,
-    site:           '@ricobowo',
-    creator:        '@ricobowo'
+    site:           '@ricobowo_',   // Handle Twitter website (bukan personal)
+    creator:        '@ricobowo_'    // Handle Twitter pemilik konten
 };
 
+// Data Open Graph — dipakai saat link dibagikan di WhatsApp, LinkedIn, Facebook
 const openGraph = {
     title:          seoTitle,
     description:    seoDescription,
     url:            domainBaseURL,
     image:          ogImageUrl,
     type:           'website',
-    locale:         'en_US',
+    locale:         'en_US',        // Bahasa konten (Inggris, untuk jangkauan lebih luas)
     siteName:       'Rico Tri Wibowo'
 };
 
+// Dublin Core — metadata standar untuk pengarsipan digital dan aksesibilitas
 const dublinCore = {
     title:          'Rico Tri Wibowo',
     creator:        authorPublisher,
@@ -42,73 +63,79 @@ const dublinCore = {
 ---
 
 <!doctype html>
+<!-- Kelas bg-navy dan font-sans diterapkan ke seluruh halaman -->
 <html lang="en" class="bg-navy text-gray-100 font-sans">
 
     <head>
 
-        <!-- Crawler & Robots -->
+        <!-- Instruksi untuk mesin pencari: izinkan indeks dan ikuti link -->
         <meta name="robots" content="index, follow, noodp, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="revisit-after" content="7 days" />
 
-        <!-- Meta-Tags -->
+        <!-- Meta dasar halaman -->
         <meta charset="UTF-8" />
-        <meta http-equiv="content-type"         content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible"      content="IE=edge">
-        <meta name="viewport"                   content="width=device-width, initial-scale=1">
+        <meta http-equiv="content-type"     content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+        <meta name="viewport"               content="width=device-width, initial-scale=1">
 
-        <!-- Google Fonts: Inter -->
+        <!-- Google Fonts: Inter — font utama seluruh website -->
+        <!-- preconnect mempercepat loading font dari server Google -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
 
-        <!-- Favicons -->
-        <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
-        <link rel="alternate icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
-        <link rel="alternate icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+        <!-- Favicon — ikon kecil di tab browser -->
+        <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />                           <!-- SVG (Chrome/Firefox/Edge modern) -->
+        <link rel="alternate icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"> <!-- PNG 32px (fallback) -->
+        <link rel="alternate icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"> <!-- PNG 16px (fallback) -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">           <!-- Ikon untuk iPhone/iPad -->
 
-        <!-- Misc -->
-        <link rel="sitemap"                     href="/sitemap-index.xml" />
-        <link rel="canonical"                   href={Astro.url} />
-        <meta name="geo.region"                 content={geoRegion}>
-        <meta name="author"                     content={authorPublisher}>
-        <meta name="publisher"                  content={authorPublisher}>
-        <meta name="copyright"                  content={authorPublisher}>
+        <!-- Link teknis -->
+        <link rel="sitemap"     href="/sitemap-index.xml" />    <!-- Peta halaman untuk Google -->
+        <link rel="canonical"   href={Astro.url} />             <!-- URL kanonik halaman ini -->
 
-        <!-- Open Graph -->
-        <meta property="og:title"               content={openGraph.title}>
-        <meta property="og:description"         content={openGraph.description}>
-        <meta property="og:url"                 content={openGraph.url}>
-        <meta property="og:type"                content={openGraph.type}>
-        <meta property="og:image"               content={openGraph.image}>
-        <meta property="og:locale"              content={openGraph.locale}>
-        <meta property="og:site_name"           content={openGraph.siteName}>
+        <!-- Metadata tambahan -->
+        <meta name="geo.region"     content={geoRegion}>          <!-- Wilayah geografis -->
+        <meta name="author"         content={authorPublisher}>     <!-- Nama penulis -->
+        <meta name="publisher"      content={authorPublisher}>     <!-- Nama penerbit -->
+        <meta name="copyright"      content={authorPublisher}>     <!-- Hak cipta -->
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card"               content="summary_large_image">
-        <meta name="twitter:title"              content={twitter.title}>
-        <meta name="twitter:description"        content={twitter.description}>
-        <meta name="twitter:image"              content={twitter.image}>
-        <meta name="twitter:site"               content={twitter.site}>
-        <meta name="twitter:creator"            content={twitter.creator}>
+        <!-- Open Graph — preview saat link dibagikan di media sosial -->
+        <meta property="og:title"       content={openGraph.title}>
+        <meta property="og:description" content={openGraph.description}>
+        <meta property="og:url"         content={openGraph.url}>
+        <meta property="og:type"        content={openGraph.type}>
+        <meta property="og:image"       content={openGraph.image}>
+        <meta property="og:locale"      content={openGraph.locale}>
+        <meta property="og:site_name"   content={openGraph.siteName}>
 
-        <!-- Dublin Core -->
-        <meta name="DC.Title"                   content={dublinCore.title}>
-        <meta name="DC.Creator"                 content={dublinCore.creator}>
-        <meta name="DC.Rights"                  content={dublinCore.rights}>
-        <meta name="DC.Publisher"               content={dublinCore.publisher}>
-        <meta name="DC.Description"             content={dublinCore.description}>
-        <meta name="DC.Language"                content={dublinCore.language}>
-        <meta name="DC.Type"                    content={dublinCore.type}>
-        <meta name="DC.Format"                  content={dublinCore.format}>
+        <!-- Twitter Card — preview saat link dibagikan di Twitter/X -->
+        <meta name="twitter:card"        content="summary_large_image"> <!-- Gambar besar di preview -->
+        <meta name="twitter:title"       content={twitter.title}>
+        <meta name="twitter:description" content={twitter.description}>
+        <meta name="twitter:image"       content={twitter.image}>
+        <meta name="twitter:site"        content={twitter.site}>
+        <meta name="twitter:creator"     content={twitter.creator}>
 
-        <!-- Title & Description -->
+        <!-- Dublin Core — standar metadata untuk pengarsipan dan aksesibilitas -->
+        <meta name="DC.Title"       content={dublinCore.title}>
+        <meta name="DC.Creator"     content={dublinCore.creator}>
+        <meta name="DC.Rights"      content={dublinCore.rights}>
+        <meta name="DC.Publisher"   content={dublinCore.publisher}>
+        <meta name="DC.Description" content={dublinCore.description}>
+        <meta name="DC.Language"    content={dublinCore.language}>
+        <meta name="DC.Type"        content={dublinCore.type}>
+        <meta name="DC.Format"      content={dublinCore.format}>
+
+        <!-- Judul dan deskripsi utama — yang tampil di tab dan Google -->
         <title>{seoTitle}</title>
         <meta name="description" content={seoDescription}>
         <meta name="keywords"    content={seoKeywords}>
 
     </head>
 
+    <!-- Body — konten halaman dimasukkan di <slot /> -->
+    <!-- min-h-[100vh] dan flex items-center justify-center untuk memusatkan kartu di layar -->
     <body class="min-h-[100vh] flex items-center justify-center p-4">
         <slot />
     </body>

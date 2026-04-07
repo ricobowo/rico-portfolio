@@ -1,0 +1,185 @@
+---
+/**
+ * ContentReadme.astro — Tab "README.md": Ringkasan profesional
+ *
+ * Menampilkan profil Rico dalam gaya README GitHub yang di-render di editor.
+ * Konten diambil dari vanilla portfolio versi sebelumnya (About + Hero section).
+ *
+ * Bagian-bagian yang ditampilkan:
+ *   - Badge profil (jabatan, lokasi, status)
+ *   - Judul dan subjudul
+ *   - Bio tiga paragraf
+ *   - Tabel statistik karier
+ *   - Daftar keunggulan utama
+ *   - Informasi kontak
+ *
+ * Cara update: edit langsung variabel dan konten HTML di bawah.
+ */
+
+// Data kontak — ubah di sini jika email atau LinkedIn berubah
+const name     = 'Rico Tri Wibowo';
+const role     = 'QA Engineer & Project Manager';
+const location = 'Bandung, Indonesia';
+const email    = 'ricobowo10@gmail.com';
+const linkedin = 'linkedin.com/in/rico-tri-wibowo';
+---
+
+<!-- Artikel README — bergaya dokumen markdown yang dirender di VS Code / GitHub -->
+<article class="font-sans text-sm leading-relaxed text-gray-300 max-w-none">
+
+    <!-- ── Badge profil ───────────────────────────────────────────
+         Baris badge kecil di atas judul — meniru badge shields.io di GitHub README
+         ──────────────────────────────────────────────────────── -->
+    <div class="flex flex-wrap gap-2 mb-4">
+        <!-- Badge jabatan -->
+        <span class="text-xs font-mono bg-navy-card border border-primary text-primary px-2 py-0.5 rounded">QA Engineer</span>
+        <!-- Badge kategori kedua -->
+        <span class="text-xs font-mono bg-navy-card border border-green-600 text-green-400 px-2 py-0.5 rounded">Project Manager</span>
+        <!-- Badge lokasi -->
+        <span class="text-xs font-mono bg-navy-card border border-gray-600 text-muted px-2 py-0.5 rounded">Bandung, ID</span>
+        <!-- Badge status -->
+        <span class="text-xs font-mono bg-navy-card border border-gray-600 text-muted px-2 py-0.5 rounded">Terbuka untuk peluang baru</span>
+    </div>
+
+    <!-- Judul H1 — bergaya heading markdown dengan # di depan -->
+    <h1 class="text-xl font-extrabold text-gray-100 mb-1 flex items-center gap-2">
+        <span class="text-primary">#</span> {name}
+    </h1>
+    <!-- Subjudul jabatan dan lokasi -->
+    <p class="text-primary text-sm font-medium mb-5">{role} · {location}</p>
+
+    <!-- ── Tentang ─────────────────────────────────────────────────
+         Tiga paragraf bio profesional — diambil dari vanilla portfolio
+         ──────────────────────────────────────────────────────── -->
+
+    <!-- Heading H2 dengan garis bawah tipis -->
+    <h2 class="text-base font-bold text-gray-100 mb-2 flex items-center gap-2 border-b border-gray-700 pb-1">
+        <span class="text-primary">##</span> Tentang Saya
+    </h2>
+
+    <!-- Paragraf 1: ringkasan umum -->
+    <p class="mb-3 text-muted">
+        Saya adalah QA Engineer dan Project Manager dengan lebih dari 5 tahun pengalaman profesional di bidang quality assurance perangkat lunak, pengiriman proyek, dan kepemimpinan operasional. Fokus pekerjaan saya adalah memastikan produk digital mencapai pengguna dengan kualitas setinggi mungkin — mulai dari penulisan test case terstruktur hingga koordinasi tim lintas fungsi sepanjang siklus hidup proyek.
+    </p>
+
+    <!-- Paragraf 2: lingkungan kerja dan pengalaman -->
+    <p class="mb-3 text-muted">
+        Saya telah bekerja di platform mobile dan web dalam lingkungan startup maupun enterprise, termasuk <span class="text-gray-200">Rolling Glory</span>, <span class="text-gray-200">PSI Indonesia</span>, dan <span class="text-gray-200">Universitas Telkom</span>. Pengalaman saya mencakup sisi teknis — API testing, siklus regresi, dokumentasi pengujian — maupun sisi strategis — sprint planning, komunikasi stakeholder, dan manajemen vendor.
+    </p>
+
+    <!-- Paragraf 3: minat dan nilai -->
+    <p class="mb-5 text-muted">
+        Di luar pekerjaan, saya antusias terhadap peningkatan proses, berbagi pengetahuan, dan membangun alur kerja yang membantu tim bergerak lebih cepat tanpa mengorbankan kualitas.
+    </p>
+
+    <!-- ── Statistik ──────────────────────────────────────────────
+         Tabel angka karier yang dirender seperti tabel markdown
+         ──────────────────────────────────────────────────────── -->
+    <h2 class="text-base font-bold text-gray-100 mb-3 flex items-center gap-2 border-b border-gray-700 pb-1">
+        <span class="text-primary">##</span> Sekilas
+    </h2>
+
+    <!-- Tabel statistik -->
+    <div class="overflow-x-auto mb-5">
+        <table class="w-full text-xs font-mono border-collapse">
+            <thead>
+                <tr class="border-b border-gray-700">
+                    <!-- Header kolom tabel -->
+                    <th class="text-left py-2 pr-6 text-gray-400 font-semibold">Metrik</th>
+                    <th class="text-left py-2 text-primary font-semibold">Nilai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Baris: tahun pengalaman -->
+                <tr class="border-b border-gray-800">
+                    <td class="py-1.5 pr-6 text-muted">Tahun pengalaman</td>
+                    <td class="py-1.5 text-gray-200">5+</td>
+                </tr>
+                <!-- Baris: proyek selesai -->
+                <tr class="border-b border-gray-800">
+                    <td class="py-1.5 pr-6 text-muted">Proyek diselesaikan</td>
+                    <td class="py-1.5 text-gray-200">15+</td>
+                </tr>
+                <!-- Baris: test case -->
+                <tr class="border-b border-gray-800">
+                    <td class="py-1.5 pr-6 text-muted">Test case ditulis</td>
+                    <td class="py-1.5 text-gray-200">300+</td>
+                </tr>
+                <!-- Baris: platform yang diuji -->
+                <tr class="border-b border-gray-800">
+                    <td class="py-1.5 pr-6 text-muted">Platform yang diuji</td>
+                    <td class="py-1.5 text-gray-200">Android, iOS, Web</td>
+                </tr>
+                <!-- Baris: status saat ini -->
+                <tr>
+                    <td class="py-1.5 pr-6 text-muted">Status</td>
+                    <td class="py-1.5 text-green-400">Tersedia · Terbuka untuk peluang</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ── Keunggulan Utama ───────────────────────────────────────
+         Daftar poin kemampuan — bergaya bullet list markdown
+         ──────────────────────────────────────────────────────── -->
+    <h2 class="text-base font-bold text-gray-100 mb-3 flex items-center gap-2 border-b border-gray-700 pb-1">
+        <span class="text-primary">##</span> Keunggulan Utama
+    </h2>
+
+    <!-- Daftar dengan simbol › di depan setiap poin -->
+    <ul class="mb-5 flex flex-col gap-1.5">
+        {[
+            'Perencanaan, eksekusi, dan dokumentasi pengujian end-to-end',
+            'API testing dan validasi dengan Postman',
+            'Manajemen proyek Agile/Scrum dan fasilitasi sprint',
+            'Koordinasi tim lintas divisi dan komunikasi stakeholder',
+            'Kepemimpinan operasional — desain proses, manajemen vendor',
+            'Produksi desain & multimedia (Adobe CC, OBS, vMix)',
+        ].map(item => (
+            <!-- Simbol › warna biru di depan setiap poin -->
+            <li class="flex gap-2 text-muted">
+                <span class="text-primary shrink-0 mt-0.5">›</span>
+                {item}
+            </li>
+        ))}
+    </ul>
+
+    <!-- ── Kontak ────────────────────────────────────────────────
+         Informasi kontak dalam format mirip kode/terminal
+         ──────────────────────────────────────────────────────── -->
+    <h2 class="text-base font-bold text-gray-100 mb-3 flex items-center gap-2 border-b border-gray-700 pb-1">
+        <span class="text-primary">##</span> Kontak
+    </h2>
+
+    <!-- Baris-baris kontak bergaya font mono -->
+    <div class="flex flex-col gap-2 font-mono text-xs">
+
+        <!-- Email — bisa diklik untuk buka klien email -->
+        <div class="flex items-center gap-3">
+            <span class="text-muted w-20 shrink-0">Email</span>
+            <a href={`mailto:${email}`} class="text-primary hover:underline">
+                {email}
+            </a>
+        </div>
+
+        <!-- LinkedIn — buka di tab baru -->
+        <div class="flex items-center gap-3">
+            <span class="text-muted w-20 shrink-0">LinkedIn</span>
+            <a
+                href={`https://${linkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary hover:underline">
+                {linkedin}
+            </a>
+        </div>
+
+        <!-- Lokasi — teks biasa, tidak bisa diklik -->
+        <div class="flex items-center gap-3">
+            <span class="text-muted w-20 shrink-0">Lokasi</span>
+            <span class="text-gray-300">{location}</span>
+        </div>
+
+    </div>
+
+</article>

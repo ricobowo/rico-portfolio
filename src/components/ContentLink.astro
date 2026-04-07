@@ -1,7 +1,19 @@
 ---
+/**
+ * ContentLink.astro — Tombol tab di bar navigasi atas panel kanan
+ *
+ * Merender elemen <label> yang terhubung ke <input type="radio"> tersembunyi.
+ * Saat diklik, radio input menjadi :checked, lalu CSS di index.astro
+ * akan menampilkan panel konten yang sesuai dan menyembunyikan yang lain.
+ *
+ * Props:
+ *   contentId   — harus sama persis dengan `id` dari input radio yang dikontrol
+ *   contentName — nama file yang ditampilkan di tab (contoh: "about.ts")
+ */
+
 interface Props {
-    contentId: string;
-    contentName: string;
+    contentId:   string; // ID input radio yang dikendalikan oleh label ini
+    contentName: string; // Nama yang tampil di tab bar (contoh: "projects.md")
 };
 
 const {
@@ -10,21 +22,38 @@ const {
 } = Astro.props as Props;
 ---
 
+<!-- Label tab — berfungsi sebagai tombol klik yang mengaktifkan radio input -->
 <label
     for={contentId}
     class={[
-        "tab-link",
+        "tab-link",              // Menerima garis bawah aktif dari CSS :checked di index.astro
 
-        "flex items-center gap-2 py-2 px-4 text-xs cursor-pointer",
+        "flex items-center gap-2", // Layout horizontal: ikon file + nama tab
+        "py-2 px-4",             // Padding atas-bawah dan kiri-kanan
+        "text-xs cursor-pointer", // Teks kecil, kursor tangan saat hover
 
-        "bg-black",
-        "text-gray-100",
-        "hover:text-primary",
+        "bg-navy",               // Warna latar belakang navy (sama dengan panel kanan)
+        "text-gray-100",         // Warna teks default
+        "hover:text-primary",    // Teks berubah ke biru accent saat hover
 
-        "!border-r",
-        "!border-r-gray-600"
+        "!border-r",             // Garis pemisah vertikal antar tab
+        "!border-r-gray-700"     // Warna garis pemisah yang subtle
     ].join(" ")}
 >
-    <svg fill=none height=16 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"width=16 xmlns=http://www.w3.org/2000/svg><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+    <!-- Ikon file — meniru tampilan tab editor kode seperti VS Code -->
+    <svg
+        fill="none" height="16" width="16"
+        stroke="currentColor"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <!-- Outline dokumen dengan pojok terlipat -->
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <!-- Detail pojok terlipat -->
+        <polyline points="14 2 14 8 20 8"></polyline>
+    </svg>
+
+    <!-- Nama file yang tampil di tab (contoh: "about.ts", "projects.md") -->
     <h2>{contentName}</h2>
 </label>

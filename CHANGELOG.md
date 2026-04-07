@@ -5,6 +5,31 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.7.0] — 2026-04-07
+### Added — Astro Dev Portfolio migration (branch: feature/astro-dev)
+- **Framework**: Migrated from vanilla HTML/CSS/JS to Astro 5 (static output)
+- **Styling**: Tailwind CSS v3 — color scheme preserved (navy `#0D1B2A` + accent `#2E86C1`)
+- **Font**: Inter via Google Fonts (replaces system-ui default)
+- **Tab system**: 4 CSS-only tabs (no JS) — `experience.json` · `projects.md` · `about.ts` · `README.md`
+- **ContentExperience**: 5 work positions with type badges (QA / PM / Ops / Admin) and bullet points
+- **ContentProjects**: 6 projects (4 QA + 2 PM) with metrics row and tag pills
+- **ContentAbout**: Skills displayed as a TypeScript code block via Shiki syntax highlighting
+- **ContentReadme**: Professional summary styled as a GitHub README (badges, table, bio, contact)
+- **Profile**: Stats row (5+ years, 15+ projects, 300+ test cases) + RTW initials placeholder
+- **Contact**: Terminal widget (`$ rico --connect`) + CV download button + social icon grid
+- **Socials**: LinkedIn, Email, Twitter/X, Instagram — all with custom inline SVG icons
+- **Assets**: Favicon PNG set, OG image (`meta.png`), CV PDF moved to `public/` folder
+- **SEO**: Full OG + Twitter Card + Dublin Core meta tags in `Layout.astro`
+- **Comments**: Inline JSDoc-style comments added to every component and layout file
+- **gitignore**: Added `node_modules/`, `dist/`, `.astro/` to `.gitignore`
+
+### Notes
+- Branch `main` still holds the vanilla v0.6.2 version — no changes made there
+- Twitter/Instagram handles: `@ricobowo_` — update in `Socials.astro` if handles change
+- Profile photo: not yet uploaded — `src/assets/profile.png` is template placeholder
+
+---
+
 ## [v0.6.2] — 2026-04-06
 ### Fixed
 - **Favicon**: Penyesuaian favicon yang sebelumnya terbaca `assets/favicon_io/favicon-16x16.png` dan `assets/favicon_io/favicon-32x32.png`

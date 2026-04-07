@@ -1,6 +1,20 @@
 ---
+/**
+ * ContentAbout.astro — Tab "about.ts": Skill Rico sebagai kode TypeScript
+ *
+ * Menampilkan profil dan skill Rico dalam format kode TypeScript sungguhan,
+ * di-render dengan syntax highlighting Shiki (warna otomatis seperti di VS Code).
+ *
+ * Ini bukan kode yang dijalankan — hanya tampilan teks bergaya kode.
+ * Dibaca dari atas ke bawah: interface → konstanta profil → skill → stats → kontak.
+ *
+ * Cara update: edit string `code` di bawah untuk mengubah isi kode yang tampil.
+ */
+
 import { Code } from 'astro:components';
 
+// Isi kode TypeScript yang akan ditampilkan dengan syntax highlighting
+// Ini adalah string biasa — bukan kode yang dieksekusi
 const code = `interface QAEngineer {
     name:            string;
     role:            string[];
@@ -9,14 +23,14 @@ const code = `interface QAEngineer {
 };
 
 interface Skills {
-    qa:              string[];
-    projectManagement: string[];
-    designMultimedia: string[];
-    webDigital:      string[];
-    tools:           string[];
+    qa:               string[]; // Pengujian perangkat lunak
+    projectManagement: string[]; // Manajemen proyek
+    designMultimedia: string[]; // Desain dan multimedia
+    webDigital:       string[]; // Web dan digital
+    tools:            string[]; // Alat bantu kerja
 };
 
-// --- Profile ---
+// --- Profil Utama ---
 const me: QAEngineer = {
     name:            'Rico Tri Wibowo',
     role:            ['QA Engineer', 'Project Manager', 'COO'],
@@ -24,22 +38,22 @@ const me: QAEngineer = {
     location:        'Bandung, Indonesia',
 };
 
-// --- Skills ---
+// --- Skill per Kategori ---
 const skills: Skills = {
     qa: [
-        'Test Planning & Strategy',
+        'Perencanaan & Strategi Pengujian',
         'Manual Testing',
         'API Testing (Postman)',
         'Regression Testing',
-        'Bug Reporting',
-        'Test Case Documentation',
-        'UAT Coordination',
+        'Pelaporan Bug',
+        'Dokumentasi Test Case',
+        'Koordinasi UAT',
     ],
     projectManagement: [
         'Agile / Scrum',
         'Sprint Planning',
-        'Stakeholder Management',
-        'Risk Assessment',
+        'Manajemen Stakeholder',
+        'Analisis Risiko',
         'JIRA / Trello',
     ],
     designMultimedia: [
@@ -51,9 +65,9 @@ const skills: Skills = {
     ],
     webDigital: [
         'HTML / CSS',
-        'Basic JavaScript',
-        'CMS Management',
-        'SEO Basics',
+        'JavaScript Dasar',
+        'Manajemen CMS',
+        'Dasar-dasar SEO',
         'Analytics',
     ],
     tools: [
@@ -65,25 +79,27 @@ const skills: Skills = {
     ],
 };
 
-// --- Stats ---
+// --- Statistik Karier ---
 const stats = {
     yearsExperience:   '5+',
     projectsDelivered: '15+',
     testCasesWritten:  '300+',
 };
 
-// --- Contact ---
+// --- Fungsi Kontak ---
 const contact = (channel: string): string => {
     switch (channel) {
         case 'email':     return 'ricobowo10@gmail.com';
         case 'linkedIn':  return 'linkedin.com/in/rico-tri-wibowo';
-        case 'instagram': return 'instagram.com/ricobowo';
-        default:          return 'See social links.';
+        case 'instagram': return 'instagram.com/ricobowo_';
+        case 'twitter':   return 'twitter.com/ricobowo_';
+        default:          return 'Lihat ikon sosial media.';
     }
 };
 `;
 ---
 
+<!-- Blok kode TypeScript dengan syntax highlighting Shiki -->
 <Code
     code={code}
     lang="ts"
@@ -92,24 +108,28 @@ const contact = (channel: string): string => {
 
 <style is:global>
 
+    /* Hilangkan warna latar dari blok kode — pakai latar panel (navy) */
     pre.astro-code {
         @apply bg-transparent !important;
     }
 
+    /* Setiap baris kode dihitung dan diberi nomor baris di kiri */
     pre.astro-code code {
         @apply block;
-        counter-reset: step;
-        counter-increment: step 0;
+        counter-reset: step;       /* Mulai ulang hitungan dari 0 */
+        counter-increment: step 0; /* Tambah sebelum render, mulai dari 1 */
     }
 
+    /* Baris individual — perlu posisi relative untuk pseudo-element */
     pre.astro-code code .line {
         @apply relative;
     }
 
+    /* Nomor baris — dirender sebagai ::before setiap elemen .line */
     pre.astro-code code .line::before {
-        content: counter(step);
-        counter-increment: step;
-        @apply text-gray-600 pr-4 select-none;
+        content: counter(step);     /* Tampilkan angka hitungan */
+        counter-increment: step;    /* Tambah 1 setiap baris */
+        @apply text-gray-600 pr-4 select-none; /* Abu-abu gelap, tidak bisa dipilih */
     }
 
 </style>

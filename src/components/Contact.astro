@@ -1,40 +1,64 @@
 ---
+/**
+ * Contact.astro — Bagian bawah panel kiri
+ *
+ * Ditampilkan di bawah komponen Profile. Berisi tiga elemen (dari atas ke bawah):
+ *   1. Widget terminal — blok dekoratif bergaya shell/command line
+ *   2. Tombol Download CV — link ke file PDF di /public/cv/
+ *   3. Ikon sosial media — dirender oleh Socials.astro
+ */
+
 import Socials from './Socials.astro';
 ---
 
 <div>
 
-    <!-- Terminal widget -->
+    <!-- ── Widget terminal ──────────────────────────────────────
+         Blok dekoratif yang meniru tampilan terminal/command line.
+         Ini hanya HTML dan CSS biasa — tidak ada shell sungguhan.
+         Font mono dipakai agar terasa seperti editor kode.
+         ──────────────────────────────────────────────────── -->
     <div class="mt-6 bg-navy-card rounded-lg p-4 border border-gray-700 text-xs font-mono">
 
+        <!-- Baris prompt: simbol $ diikuti perintah palsu -->
         <div class="flex items-center mb-2">
-            <span class="text-primary mr-2">$</span>
-            <span class="text-gray-100">rico --connect</span>
+            <span class="text-primary mr-2">$</span>          <!-- Simbol dollar warna biru -->
+            <span class="text-gray-100">rico --connect</span>  <!-- Perintah palsu di terminal -->
         </div>
 
+        <!-- Output terminal — teks balasan yang muncul setelah perintah -->
         <div class="mt-2 text-muted leading-relaxed">
-            Initializing connection...<br />
-            QA Engineer & PM available.<br />
-            Open to new opportunities.
+            Initializing connection...<br />       <!-- Baris status 1 -->
+            QA Engineer & PM available.<br />      <!-- Baris status 2 -->
+            Open to new opportunities.             <!-- Baris ajakan -->
         </div>
 
     </div>
 
-    <!-- CV Download button -->
+    <!-- ── Tombol Download CV ───────────────────────────────────
+         Link ke file PDF yang disimpan di folder /public/cv/.
+         Terbuka di tab baru. Saat hover: latar jadi biru penuh.
+         ──────────────────────────────────────────────────── -->
     <a
         href="/cv/Rico_Tri_Wibowo_CV.pdf"
         target="_blank"
         rel="noopener noreferrer"
         class="flex items-center justify-center gap-2 w-full mt-4 px-4 py-2.5 text-sm font-medium border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all duration-150">
+
+        <!-- Ikon panah download -->
         <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path> <!-- Dasar nampan -->
+            <polyline points="7 10 12 15 17 10"></polyline>               <!-- Kepala panah bawah -->
+            <line x1="12" y1="15" x2="12" y2="3"></line>                 <!-- Batang panah -->
         </svg>
+
         Download CV
     </a>
 
-    <!-- Social Links -->
+    <!-- ── Ikon sosial media ────────────────────────────────────
+         Dirender oleh Socials.astro.
+         Berisi: LinkedIn, Email, Twitter/X, Instagram.
+         ──────────────────────────────────────────────────── -->
     <Socials />
 
 </div>

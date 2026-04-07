@@ -1,81 +1,106 @@
 ---
+/**
+ * ContentProjects.astro — Tab "projects.md": Daftar proyek portofolio
+ *
+ * Menampilkan 6 proyek Rico dalam grid dua kolom.
+ * Setiap kartu berisi: nama, badge kategori, deskripsi, metrics, dan tag.
+ *
+ * Badge kategori:
+ *   QA Testing          = biru accent
+ *   Project Management  = hijau
+ *
+ * Cara menambah proyek baru: tambahkan objek ke array `projects`.
+ */
+
+// Tipe data untuk satu proyek
 interface Project {
-    name:        string;
-    description: string;
-    category:    'QA Testing' | 'Project Management';
-    metrics?:    string;
-    tags:        string[];
+    name:        string;                                      // Nama proyek
+    description: string;                                      // Deskripsi singkat
+    category:    'QA Testing' | 'Project Management';         // Kategori untuk badge warna
+    metrics?:    string;                                      // Angka/fakta kunci (opsional)
+    tags:        string[];                                    // Label teknologi/metode
     link?: {
-        url?:         string;
-        buttonLabel?: string;
+        url?:         string; // URL website proyek (opsional)
+        buttonLabel?: string; // Label tombol (default: "Lihat Proyek")
     };
 };
 
+// Daftar proyek — 4 QA + 2 PM
 const projects: Project[] = [{
     name:        'B7 Supersales',
     category:    'QA Testing',
-    description: 'End-to-end QA for a B2B sales platform — test planning, regression cycles, and API validation to ensure stability before each release.',
-    metrics:     '50+ test cases · 3 release cycles',
+    description: 'QA end-to-end untuk platform penjualan B2B — perencanaan test, siklus regresi, dan validasi API untuk memastikan stabilitas sebelum setiap rilis.',
+    metrics:     '50+ test case · 3 siklus rilis',
     tags:        ['Manual Testing', 'API Testing', 'Regression'],
 }, {
     name:        'Bebeclub',
     category:    'QA Testing',
-    description: 'Quality assurance for a parenting community mobile app. Managed functional, UI, and compatibility testing across Android and iOS devices.',
-    metrics:     'Android & iOS · UAT coordination',
+    description: 'Quality assurance untuk aplikasi mobile komunitas parenting. Mengelola pengujian fungsional, UI, dan kompatibilitas di perangkat Android dan iOS.',
+    metrics:     'Android & iOS · Koordinasi UAT',
     tags:        ['Mobile Testing', 'UAT', 'Bug Reporting'],
 }, {
     name:        'Treasury',
     category:    'QA Testing',
-    description: 'QA Engineer for a financial management application. Focused on data integrity testing, edge-case coverage, and security validation.',
-    metrics:     'Financial flows · Edge-case coverage',
+    description: 'QA Engineer untuk aplikasi manajemen keuangan. Fokus pada pengujian integritas data, cakupan edge case, dan validasi keamanan.',
+    metrics:     'Alur keuangan · Cakupan edge case',
     tags:        ['Functional Testing', 'Security', 'Postman'],
 }, {
     name:        'TADA Spin Wheel',
     category:    'QA Testing',
-    description: 'Tested a loyalty rewards feature (spin wheel mechanic) — validating randomness logic, reward distribution, and error handling under load.',
-    metrics:     'Reward logic · Load scenario testing',
+    description: 'Pengujian fitur reward loyalitas (mekanik spin wheel) — memvalidasi logika randomness, distribusi hadiah, dan penanganan error saat load.',
+    metrics:     'Logika reward · Skenario load testing',
     tags:        ['Feature Testing', 'Logic Validation', 'API'],
 }, {
     name:        'RS Mitra Keluarga',
     category:    'Project Management',
-    description: 'Led the delivery of a hospital information system project — coordinated between vendor, hospital management, and dev team from scoping to go-live.',
-    metrics:     'On-time delivery · 4-month timeline',
-    tags:        ['Agile', 'Stakeholder Mgmt', 'Scrum'],
+    description: 'Memimpin penyelesaian proyek sistem informasi rumah sakit — koordinasi antara vendor, manajemen rumah sakit, dan tim dev dari scoping hingga go-live.',
+    metrics:     'Selesai tepat waktu · Timeline 4 bulan',
+    tags:        ['Agile', 'Stakeholder Management', 'Scrum'],
 }, {
     name:        'Morinaga Platinum',
     category:    'Project Management',
-    description: 'Project Manager for a consumer brand digital campaign. Managed timeline, vendor deliverables, and content production across multiple channels.',
-    metrics:     'Multi-channel · 3 vendor teams',
-    tags:        ['Project Planning', 'Vendor Mgmt', 'Campaign'],
+    description: 'Project Manager untuk kampanye digital brand consumer. Mengelola timeline, deliverable vendor, dan produksi konten lintas berbagai saluran.',
+    metrics:     'Multi-channel · 3 tim vendor',
+    tags:        ['Project Planning', 'Vendor Management', 'Campaign'],
 }];
 
+// Warna badge per kategori
 const categoryColor: Record<string, string> = {
-    'QA Testing':          'text-primary border-primary',
-    'Project Management':  'text-green-400 border-green-400',
+    'QA Testing':          'text-primary border-primary',      // Biru accent untuk QA
+    'Project Management':  'text-green-400 border-green-400',  // Hijau untuk PM
 };
 ---
 
+<!-- Grid proyek — 1 kolom di mobile, 2 kolom di desktop -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
     {projects.map(project => (
 
+        <!-- Kartu satu proyek — border berubah ke biru saat hover -->
         <div class="flex flex-col border border-gray-700 rounded-lg p-4 bg-navy-card hover:border-primary transition-colors duration-200">
 
+            <!-- Baris atas: nama proyek + badge kategori -->
             <div class="flex items-start justify-between gap-2 mb-2">
+                <!-- Nama proyek -->
                 <h3 class="text-base font-semibold text-gray-100">{project.name}</h3>
+                <!-- Badge QA / PM dengan warna berbeda -->
                 <span class={`text-xs border rounded px-2 py-0.5 shrink-0 font-mono ${categoryColor[project.category]}`}>
                     {project.category === 'QA Testing' ? 'QA' : 'PM'}
                 </span>
             </div>
 
+            <!-- Deskripsi proyek — flex-grow agar semua kartu tingginya seragam -->
             <p class="text-sm text-muted leading-relaxed flex-grow">{project.description}</p>
 
+            <!-- Metrics — angka/fakta kunci dalam font mono biru -->
             {project.metrics && (
                 <p class="text-xs text-primary mt-3 font-mono">{project.metrics}</p>
             )}
 
+            <!-- Tag label teknologi/metode yang digunakan -->
             <div class="flex flex-wrap gap-1.5 mt-3">
                 {project.tags.map(tag => (
+                    <!-- Setiap tag: border tipis, teks abu-abu, sudut membulat -->
                     <span class="text-xs border border-gray-700 text-muted rounded px-2 py-0.5">{tag}</span>
                 ))}
             </div>

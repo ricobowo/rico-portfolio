@@ -1,53 +1,70 @@
 ---
+/**
+ * ContentExperience.astro — Tab "experience.json": Riwayat pekerjaan
+ *
+ * Menampilkan 5 posisi kerja Rico dalam kartu yang bisa di-hover.
+ * Setiap kartu berisi: judul, perusahaan, periode, badge tipe, dan poin-poin kerja.
+ *
+ * Badge tipe pekerjaan:
+ *   QA    = biru accent (warna utama tema)
+ *   PM    = hijau (membedakan dari QA)
+ *   Ops   = kuning (operasional/COO)
+ *   Admin = abu-abu (staf administrasi)
+ *
+ * Cara menambah pengalaman baru: tambahkan objek baru ke array `experiences`.
+ */
+
+// Tipe data untuk satu entri pengalaman kerja
 interface Experience {
-    title:    string;
-    company:  string;
-    period:   string;
-    type:     'QA' | 'PM' | 'Ops' | 'Admin';
-    bullets:  string[];
+    title:    string;                           // Nama jabatan
+    company:  string;                           // Nama perusahaan/institusi
+    period:   string;                           // Periode kerja (format bebas)
+    type:     'QA' | 'PM' | 'Ops' | 'Admin';   // Kategori untuk badge warna
+    bullets:  string[];                         // Poin-poin deskripsi pekerjaan
 };
 
+// Daftar pengalaman kerja — diurutkan dari yang terbaru ke yang terlama
 const experiences: Experience[] = [{
     title:   'QA Engineer',
     company: 'Rolling Glory',
-    period:  'Nov 2024 – Present',
+    period:  'Nov 2024 – Sekarang',
     type:    'QA',
     bullets: [
-        'Conduct manual and API testing for mobile & web applications',
-        'Write and maintain test cases and bug reports',
-        'Coordinate UAT with clients and internal teams',
+        'Melakukan manual testing dan API testing untuk aplikasi mobile & web',
+        'Membuat dan memelihara test case serta laporan bug',
+        'Mengkoordinasikan UAT bersama klien dan tim internal',
         'Tools: Postman, JIRA, VS Code',
     ],
 }, {
-    title:   'Administration Staff — Communication Studies',
-    company: 'Telkom University',
-    period:  'Oct 2024 – Present',
+    title:   'Staf Administrasi — Ilmu Komunikasi',
+    company: 'Universitas Telkom',
+    period:  'Okt 2024 – Sekarang',
     type:    'Admin',
     bullets: [
-        'Manage academic and administrative documentation',
-        'Support faculty and student communication workflows',
-        'Coordinate departmental events and scheduling',
+        'Mengelola dokumentasi akademik dan administrasi program studi',
+        'Mendukung alur komunikasi antara dosen dan mahasiswa',
+        'Mengkoordinasikan kegiatan dan jadwal departemen',
     ],
 }, {
     title:   'Chief Operating Officer',
     company: 'PSI Indonesia',
-    period:  'Jul 2023 – Present',
+    period:  'Jul 2023 – Sekarang',
     type:    'Ops',
     bullets: [
-        'Oversee day-to-day operations across departments',
-        'Lead project planning and cross-functional coordination',
-        'Drive process improvement and operational efficiency',
-        'Manage vendor and stakeholder relationships',
+        'Mengawasi operasional harian lintas departemen',
+        'Memimpin perencanaan proyek dan koordinasi tim lintas divisi',
+        'Mendorong peningkatan proses dan efisiensi operasional',
+        'Mengelola hubungan dengan vendor dan pemangku kepentingan',
     ],
 }, {
-    title:   'Administration Staff — Research & Community Service',
-    company: 'Telkom University',
+    title:   'Staf Administrasi — Penelitian & Pengabdian Masyarakat',
+    company: 'Universitas Telkom',
     period:  'Feb 2021 – Nov 2024',
     type:    'Admin',
     bullets: [
-        'Administered research program documentation and reporting',
-        'Coordinated community service initiatives and events',
-        'Maintained data accuracy for institutional databases',
+        'Mengelola administrasi dan pelaporan program penelitian',
+        'Mengkoordinasikan kegiatan pengabdian masyarakat',
+        'Menjaga keakuratan data pada basis data institusi',
     ],
 }, {
     title:   'Junior Project Manager',
@@ -55,45 +72,55 @@ const experiences: Experience[] = [{
     period:  'Sep 2019 – Nov 2020',
     type:    'PM',
     bullets: [
-        'Managed project timelines, scope, and deliverables',
-        'Facilitated daily standups and sprint planning sessions',
-        'Acted as liaison between development team and clients',
-        'Delivered 6+ mobile/web projects on schedule',
+        'Mengelola timeline, scope, dan deliverable proyek',
+        'Memfasilitasi daily standup dan sesi sprint planning',
+        'Menjadi penghubung antara tim pengembang dan klien',
+        'Menyelesaikan 6+ proyek mobile/web sesuai jadwal',
     ],
 }];
 
+// Pemetaan tipe ke kelas warna Tailwind (teks + border badge)
 const typeColor: Record<string, string> = {
-    QA:    'text-primary border-primary',
-    PM:    'text-green-400 border-green-400',
-    Ops:   'text-yellow-400 border-yellow-400',
-    Admin: 'text-muted border-gray-600',
+    QA:    'text-primary border-primary',    // Biru accent
+    PM:    'text-green-400 border-green-400', // Hijau
+    Ops:   'text-yellow-400 border-yellow-400', // Kuning
+    Admin: 'text-muted border-gray-600',     // Abu-abu
 };
 ---
 
+<!-- Daftar kartu pengalaman kerja, tersusun vertikal -->
 <div class="flex flex-col gap-5">
 
     {experiences.map(exp => (
 
+        <!-- Kartu satu pengalaman — border berubah ke biru saat hover -->
         <div class="border border-gray-700 rounded-lg p-5 bg-navy-card hover:border-primary transition-colors duration-200">
 
+            <!-- Baris atas: judul + perusahaan (kiri) | badge + periode (kanan) -->
             <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
 
+                <!-- Sisi kiri: nama jabatan dan perusahaan -->
                 <div>
                     <h3 class="font-semibold text-gray-100 text-base">{exp.title}</h3>
                     <p class="text-sm text-primary mt-0.5">{exp.company}</p>
                 </div>
 
+                <!-- Sisi kanan: badge tipe + teks periode -->
                 <div class="flex items-center gap-2 shrink-0">
+                    <!-- Badge kategori — warna berbeda per tipe -->
                     <span class={`text-xs border rounded px-2 py-0.5 font-mono ${typeColor[exp.type]}`}>
                         {exp.type}
                     </span>
+                    <!-- Teks periode kerja -->
                     <span class="text-xs text-muted font-mono">{exp.period}</span>
                 </div>
 
             </div>
 
+            <!-- Daftar poin-poin pekerjaan -->
             <ul class="flex flex-col gap-1">
                 {exp.bullets.map(b => (
+                    <!-- Setiap poin diawali simbol › warna biru -->
                     <li class="text-sm text-muted flex gap-2">
                         <span class="text-primary mt-0.5 shrink-0">›</span>
                         {b}

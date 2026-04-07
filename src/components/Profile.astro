@@ -1,32 +1,61 @@
 ---
+/**
+ * Profile.astro — Kartu identitas di panel kiri
+ *
+ * Menampilkan: nama, jabatan, lokasi, bio singkat, dan baris statistik karier.
+ * Tidak menggunakan foto profil — digantikan kotak inisial "RTW".
+ *
+ * Cara menambah foto profil nanti:
+ *   1. Upload foto ke src/assets/profile.jpg
+ *   2. Hapus blok <div class="...RTW..."> di bawah
+ *   3. Ganti dengan: <Picture src={import('../assets/profile.jpg')} ... />
+ */
+
+// Data profil — ubah di sini untuk update tampilan kartu
 const profile = {
     name:        'Rico Tri Wibowo',
     title:       'QA Engineer & Project Manager',
     location:    'Bandung, Indonesia',
-    description: 'QA Engineer and Project Manager with 5+ years of experience ensuring software quality and delivering projects on time. Specialized in test planning, API testing, and cross-functional team coordination across mobile and web platforms.'
+    description: 'QA Engineer dan Project Manager dengan pengalaman 5+ tahun memastikan kualitas software dan menyelesaikan proyek tepat waktu. Spesialis dalam perencanaan pengujian, API testing, dan koordinasi tim lintas divisi untuk platform mobile dan web.'
 };
+
+// Angka statistik yang tampil di baris bawah bio
+const stats = [
+    { value: '5+',   label: 'Tahun Pengalaman' },
+    { value: '15+',  label: 'Proyek Selesai'   },
+    { value: '300+', label: 'Test Case Dibuat' },
+];
 ---
 
+<!-- Pembungkus kartu profil — tengah di mobile, rata kiri di desktop -->
 <div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
 
+    <!-- Baris atas: avatar + nama/jabatan/lokasi -->
     <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
 
-        <!-- Profile initials placeholder -->
+        <!-- Kotak inisial — pengganti foto profil sementara -->
+        <!-- Border warna biru accent sesuai tema -->
         <div class="w-24 h-24 rounded-xl border-2 border-primary mx-auto sm:mx-0 flex items-center justify-center bg-navy-card shrink-0">
+            <!-- RTW = inisial Rico Tri Wibowo -->
             <span class="text-2xl font-extrabold text-primary tracking-widest">RTW</span>
         </div>
 
+        <!-- Blok nama, jabatan, lokasi -->
         <div>
 
+            <!-- Nama lengkap — judul utama panel kiri -->
             <h1 class="text-2xl font-extrabold mb-1 text-gray-100">
                 {profile.name}
             </h1>
 
+            <!-- Jabatan — warna biru accent agar menonjol -->
             <p class="text-sm mb-2 text-primary font-medium">
                 {profile.title}
             </p>
 
+            <!-- Lokasi dengan ikon pin peta -->
             <p class="flex items-center justify-center sm:justify-start text-sm text-muted">
+                <!-- Ikon pin lokasi (SVG inline) -->
                 <svg class="-mt-0.5 inline mr-2" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
@@ -38,24 +67,22 @@ const profile = {
 
     </div>
 
+    <!-- Bio — paragraf singkat tentang Rico -->
     <p class="text-sm leading-relaxed text-muted">
         {profile.description}
     </p>
 
-    <!-- Stats row -->
+    <!-- Baris statistik — 3 kartu kecil sejajar -->
     <div class="flex gap-4 w-full text-center">
-        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
-            <p class="text-lg font-bold text-primary">5+</p>
-            <p class="text-xs text-muted mt-0.5">Years Exp.</p>
-        </div>
-        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
-            <p class="text-lg font-bold text-primary">15+</p>
-            <p class="text-xs text-muted mt-0.5">Projects</p>
-        </div>
-        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
-            <p class="text-lg font-bold text-primary">300+</p>
-            <p class="text-xs text-muted mt-0.5">Test Cases</p>
-        </div>
+        {stats.map(stat => (
+            <!-- Kartu statistik individual — latar navy card dengan border subtle -->
+            <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
+                <!-- Angka besar warna biru -->
+                <p class="text-lg font-bold text-primary">{stat.value}</p>
+                <!-- Label kecil di bawah angka -->
+                <p class="text-xs text-muted mt-0.5">{stat.label}</p>
+            </div>
+        ))}
     </div>
 
 </div>
