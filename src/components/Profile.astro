@@ -16,14 +16,14 @@ const profile = {
     name:        'Rico Tri Wibowo',
     title:       'QA Engineer & Project Manager',
     location:    'Bandung, Indonesia',
-    description: 'QA Engineer dan Project Manager dengan pengalaman 5+ tahun memastikan kualitas software dan menyelesaikan proyek tepat waktu. Spesialis dalam perencanaan pengujian, API testing, dan koordinasi tim lintas divisi untuk platform mobile dan web.'
+    description: 'QA Engineer and Project Manager with 5+ years of experience delivering quality software and managing projects end-to-end. Specialized in test planning, API testing, and cross-functional team coordination across mobile and web platforms.'
 };
 
 // Angka statistik yang tampil di baris bawah bio
 const stats = [
-    { value: '5+',   label: 'Tahun Pengalaman' },
-    { value: '15+',  label: 'Proyek Selesai'   },
-    { value: '300+', label: 'Test Case Dibuat' },
+    { value: '5+',   label: 'Years Exp.'   },
+    { value: '15+',  label: 'Projects'     },
+    { value: '300+', label: 'Test Cases'   },
 ];
 ---
 
@@ -34,7 +34,6 @@ const stats = [
     <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
 
         <!-- Kotak inisial — pengganti foto profil sementara -->
-        <!-- Border warna biru accent sesuai tema -->
         <div class="w-24 h-24 rounded-xl border-2 border-primary mx-auto sm:mx-0 flex items-center justify-center bg-navy-card shrink-0">
             <!-- RTW = inisial Rico Tri Wibowo -->
             <span class="text-2xl font-extrabold text-primary tracking-widest">RTW</span>
@@ -43,19 +42,18 @@ const stats = [
         <!-- Blok nama, jabatan, lokasi -->
         <div>
 
-            <!-- Nama lengkap — judul utama panel kiri -->
+            <!-- Nama lengkap -->
             <h1 class="text-2xl font-extrabold mb-1 text-gray-100">
                 {profile.name}
             </h1>
 
-            <!-- Jabatan — warna biru accent agar menonjol -->
+            <!-- Jabatan — warna biru accent -->
             <p class="text-sm mb-2 text-primary font-medium">
                 {profile.title}
             </p>
 
             <!-- Lokasi dengan ikon pin peta -->
             <p class="flex items-center justify-center sm:justify-start text-sm text-muted">
-                <!-- Ikon pin lokasi (SVG inline) -->
                 <svg class="-mt-0.5 inline mr-2" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
@@ -67,7 +65,7 @@ const stats = [
 
     </div>
 
-    <!-- Bio — paragraf singkat tentang Rico -->
+    <!-- Bio -->
     <p class="text-sm leading-relaxed text-muted">
         {profile.description}
     </p>
@@ -75,11 +73,8 @@ const stats = [
     <!-- Baris statistik — 3 kartu kecil sejajar -->
     <div class="flex gap-4 w-full text-center">
         {stats.map(stat => (
-            <!-- Kartu statistik individual — latar navy card dengan border subtle -->
             <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
-                <!-- Angka besar warna biru -->
                 <p class="text-lg font-bold text-primary">{stat.value}</p>
-                <!-- Label kecil di bawah angka -->
                 <p class="text-xs text-muted mt-0.5">{stat.label}</p>
             </div>
         ))}

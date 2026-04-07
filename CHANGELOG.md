@@ -5,6 +5,35 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.7.2] — 2026-04-07
+### Fixed
+- **`.claude-prompts` untracked**: Dilepas dari git tracking (`git rm --cached`) — sekarang benar-benar tidak masuk GitHub sesuai `.gitignore`
+- **GitHub social icon**: Ditambahkan kembali ke `Socials.astro` setelah tertimpa saat penulisan ulang file
+- **Social icon layout**: `justify-between` diganti ke `flex gap-2` agar 5 ikon tersusun rapi tanpa terlalu meregang
+
+### Changed
+- **Semua konten tampilan ke English**: Profile bio, ContentExperience bullets, ContentProjects descriptions, ContentAbout code inline labels
+- **ContentReadme.astro**: Redesign penuh sesuai referensi — "Let's Build Quality Products Together", What I Do, Why Work With Me?, CTA penutup
+- **Komentar kode**: Semua komentar di seluruh komponen menggunakan Bahasa Indonesia
+
+---
+
+## [v0.7.1] — 2026-04-07
+### Fixed
+- **Urutan tab**: Diurutkan ulang menjadi `experience.json` → `projects.md` → `about.ts` → `README.md`
+- **`bg-black` di ContentLink**: Diganti ke `bg-navy` agar konsisten dengan warna panel
+
+### Added
+- **ContentReadme.astro**: Tab baru README.md — ringkasan profesional bergaya GitHub README (badge, bio, tabel stats, bullet list, kontak)
+- **Komentar Bahasa Indonesia**: Ditambahkan ke seluruh file komponen dan layout
+
+### Changed
+- **`.gitignore`**: Tambah `.claude-prompts/` ke daftar ignore
+- **CHANGELOG, VERSION, README**: Diupdate ke v0.7.1
+- **`.claude-prompts`**: context.md, progress.md, general.md diperbarui penuh
+
+---
+
 ## [v0.7.0] — 2026-04-07
 ### Added — Astro Dev Portfolio migration (branch: feature/astro-dev)
 - **Framework**: Migrated from vanilla HTML/CSS/JS to Astro 5 (static output)

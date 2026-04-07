@@ -2,19 +2,16 @@
 /**
  * ContentAbout.astro — Tab "about.ts": Skill Rico sebagai kode TypeScript
  *
- * Menampilkan profil dan skill Rico dalam format kode TypeScript sungguhan,
+ * Menampilkan profil dan skill Rico dalam format kode TypeScript,
  * di-render dengan syntax highlighting Shiki (warna otomatis seperti di VS Code).
  *
  * Ini bukan kode yang dijalankan — hanya tampilan teks bergaya kode.
- * Dibaca dari atas ke bawah: interface → konstanta profil → skill → stats → kontak.
- *
- * Cara update: edit string `code` di bawah untuk mengubah isi kode yang tampil.
+ * Cara update: edit string `code` di bawah.
  */
 
 import { Code } from 'astro:components';
 
-// Isi kode TypeScript yang akan ditampilkan dengan syntax highlighting
-// Ini adalah string biasa — bukan kode yang dieksekusi
+// Isi kode TypeScript yang ditampilkan — ini string biasa, bukan kode yang dieksekusi
 const code = `interface QAEngineer {
     name:            string;
     role:            string[];
@@ -23,14 +20,14 @@ const code = `interface QAEngineer {
 };
 
 interface Skills {
-    qa:               string[]; // Pengujian perangkat lunak
-    projectManagement: string[]; // Manajemen proyek
-    designMultimedia: string[]; // Desain dan multimedia
-    webDigital:       string[]; // Web dan digital
-    tools:            string[]; // Alat bantu kerja
+    qa:               string[];
+    projectManagement: string[];
+    designMultimedia: string[];
+    webDigital:       string[];
+    tools:            string[];
 };
 
-// --- Profil Utama ---
+// --- Profile ---
 const me: QAEngineer = {
     name:            'Rico Tri Wibowo',
     role:            ['QA Engineer', 'Project Manager', 'COO'],
@@ -38,22 +35,22 @@ const me: QAEngineer = {
     location:        'Bandung, Indonesia',
 };
 
-// --- Skill per Kategori ---
+// --- Skills by Category ---
 const skills: Skills = {
     qa: [
-        'Perencanaan & Strategi Pengujian',
+        'Test Planning & Strategy',
         'Manual Testing',
         'API Testing (Postman)',
         'Regression Testing',
-        'Pelaporan Bug',
-        'Dokumentasi Test Case',
-        'Koordinasi UAT',
+        'Bug Reporting & Triage',
+        'Test Case Documentation',
+        'UAT Coordination',
     ],
     projectManagement: [
         'Agile / Scrum',
         'Sprint Planning',
-        'Manajemen Stakeholder',
-        'Analisis Risiko',
+        'Stakeholder Management',
+        'Risk Assessment',
         'JIRA / Trello',
     ],
     designMultimedia: [
@@ -65,9 +62,9 @@ const skills: Skills = {
     ],
     webDigital: [
         'HTML / CSS',
-        'JavaScript Dasar',
-        'Manajemen CMS',
-        'Dasar-dasar SEO',
+        'Basic JavaScript',
+        'CMS Management',
+        'SEO Basics',
         'Analytics',
     ],
     tools: [
@@ -79,21 +76,21 @@ const skills: Skills = {
     ],
 };
 
-// --- Statistik Karier ---
+// --- Career Stats ---
 const stats = {
     yearsExperience:   '5+',
     projectsDelivered: '15+',
     testCasesWritten:  '300+',
 };
 
-// --- Fungsi Kontak ---
+// --- Contact ---
 const contact = (channel: string): string => {
     switch (channel) {
         case 'email':     return 'ricobowo10@gmail.com';
         case 'linkedIn':  return 'linkedin.com/in/rico-tri-wibowo';
         case 'instagram': return 'instagram.com/ricobowo_';
         case 'twitter':   return 'twitter.com/ricobowo_';
-        default:          return 'Lihat ikon sosial media.';
+        default:          return 'See social links.';
     }
 };
 `;
@@ -116,20 +113,19 @@ const contact = (channel: string): string => {
     /* Setiap baris kode dihitung dan diberi nomor baris di kiri */
     pre.astro-code code {
         @apply block;
-        counter-reset: step;       /* Mulai ulang hitungan dari 0 */
-        counter-increment: step 0; /* Tambah sebelum render, mulai dari 1 */
+        counter-reset: step;
+        counter-increment: step 0;
     }
 
-    /* Baris individual — perlu posisi relative untuk pseudo-element */
     pre.astro-code code .line {
         @apply relative;
     }
 
     /* Nomor baris — dirender sebagai ::before setiap elemen .line */
     pre.astro-code code .line::before {
-        content: counter(step);     /* Tampilkan angka hitungan */
-        counter-increment: step;    /* Tambah 1 setiap baris */
-        @apply text-gray-600 pr-4 select-none; /* Abu-abu gelap, tidak bisa dipilih */
+        content: counter(step);
+        counter-increment: step;
+        @apply text-gray-600 pr-4 select-none;
     }
 
 </style>
