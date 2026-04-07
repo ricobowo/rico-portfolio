@@ -1,0 +1,61 @@
+---
+const profile = {
+    name:        'Rico Tri Wibowo',
+    title:       'QA Engineer & Project Manager',
+    location:    'Bandung, Indonesia',
+    description: 'QA Engineer and Project Manager with 5+ years of experience ensuring software quality and delivering projects on time. Specialized in test planning, API testing, and cross-functional team coordination across mobile and web platforms.'
+};
+---
+
+<div class="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
+
+    <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+
+        <!-- Profile initials placeholder -->
+        <div class="w-24 h-24 rounded-xl border-2 border-primary mx-auto sm:mx-0 flex items-center justify-center bg-navy-card shrink-0">
+            <span class="text-2xl font-extrabold text-primary tracking-widest">RTW</span>
+        </div>
+
+        <div>
+
+            <h1 class="text-2xl font-extrabold mb-1 text-gray-100">
+                {profile.name}
+            </h1>
+
+            <p class="text-sm mb-2 text-primary font-medium">
+                {profile.title}
+            </p>
+
+            <p class="flex items-center justify-center sm:justify-start text-sm text-muted">
+                <svg class="-mt-0.5 inline mr-2" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                {profile.location}
+            </p>
+
+        </div>
+
+    </div>
+
+    <p class="text-sm leading-relaxed text-muted">
+        {profile.description}
+    </p>
+
+    <!-- Stats row -->
+    <div class="flex gap-4 w-full text-center">
+        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
+            <p class="text-lg font-bold text-primary">5+</p>
+            <p class="text-xs text-muted mt-0.5">Years Exp.</p>
+        </div>
+        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
+            <p class="text-lg font-bold text-primary">15+</p>
+            <p class="text-xs text-muted mt-0.5">Projects</p>
+        </div>
+        <div class="flex-1 border border-gray-700 rounded-lg py-3 bg-navy-card">
+            <p class="text-lg font-bold text-primary">300+</p>
+            <p class="text-xs text-muted mt-0.5">Test Cases</p>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import Profile    from '../components/Profile.astro';
+import Contact    from '../components/Contact.astro';
+import ContentLink from '../components/ContentLink.astro';
+
+import ContentAbout      from '../components/ContentAbout.astro';
+import ContentExperience from '../components/ContentExperience.astro';
+import ContentProjects   from '../components/ContentProjects.astro';
+---
+
+<Layout>
+
+    <!-- Main Wrapper -->
+    <main class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-700 rounded-2xl overflow-hidden shadow-2xl relative bg-navy mb-12 md:mb-4">
+
+        <!-- Left panel: Profile + Contact -->
+        <div class="p-8 md:p-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-700">
+            <Profile />
+            <Contact />
+        </div>
+
+        <!-- Right panel: Tabbed content -->
+        <div class="w-full md:w-4/5 p-0">
+
+            <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
+
+                <div class="tab-controls">
+
+                    <input type="radio" id="tab1" name="tabs" class="tab-radio" checked />
+                    <input type="radio" id="tab2" name="tabs" class="tab-radio" />
+                    <input type="radio" id="tab3" name="tabs" class="tab-radio" />
+
+                    <!-- Tab bar -->
+                    <div class="flex bg-navy border-b border-gray-700 sticky top-0 z-10">
+                        <ContentLink contentId="tab1" contentName="about.ts" />
+                        <ContentLink contentId="tab2" contentName="experience.json" />
+                        <ContentLink contentId="tab3" contentName="projects.md" />
+                    </div>
+
+                    <!-- Tab content -->
+                    <div class="p-6 flex-grow overflow-y-auto bg-navy">
+
+                        <div id="content1" class="tab-content">
+                            <ContentAbout />
+                        </div>
+
+                        <div id="content2" class="tab-content">
+                            <ContentExperience />
+                        </div>
+
+                        <div id="content3" class="tab-content">
+                            <ContentProjects />
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div class="fixed md:absolute bottom-0 left-0 right-0 w-full text-center bg-navy py-2 text-xs text-muted border-t border-gray-800">
+        Rico Tri Wibowo &mdash; QA Engineer & Project Manager &middot; Bandung, Indonesia
+    </div>
+
+</Layout>
+
+<style is:global>
+
+    .tab-radio {
+        @apply absolute opacity-0 pointer-events-none;
+    }
+
+    .tab-content {
+        @apply hidden opacity-0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .tab-link {
+        @apply border-b-2 border-transparent bg-transparent;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    /* Tab 1 */
+    #tab1:checked ~ * #content1 {
+        @apply block opacity-100;
+    }
+    #tab1:checked ~ .flex .tab-link:nth-child(1) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* Tab 2 */
+    #tab2:checked ~ * #content2 {
+        @apply block opacity-100;
+    }
+    #tab2:checked ~ .flex .tab-link:nth-child(2) {
+        @apply border-b-2 border-b-primary;
+    }
+
+    /* Tab 3 */
+    #tab3:checked ~ * #content3 {
+        @apply block opacity-100;
+    }
+    #tab3:checked ~ .flex .tab-link:nth-child(3) {
+        @apply border-b-2 border-b-primary;
+    }
+
+</style>

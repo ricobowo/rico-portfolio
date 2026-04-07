@@ -1,0 +1,108 @@
+---
+interface Experience {
+    title:    string;
+    company:  string;
+    period:   string;
+    type:     'QA' | 'PM' | 'Ops' | 'Admin';
+    bullets:  string[];
+};
+
+const experiences: Experience[] = [{
+    title:   'QA Engineer',
+    company: 'Rolling Glory',
+    period:  'Nov 2024 – Present',
+    type:    'QA',
+    bullets: [
+        'Conduct manual and API testing for mobile & web applications',
+        'Write and maintain test cases and bug reports',
+        'Coordinate UAT with clients and internal teams',
+        'Tools: Postman, JIRA, VS Code',
+    ],
+}, {
+    title:   'Administration Staff — Communication Studies',
+    company: 'Telkom University',
+    period:  'Oct 2024 – Present',
+    type:    'Admin',
+    bullets: [
+        'Manage academic and administrative documentation',
+        'Support faculty and student communication workflows',
+        'Coordinate departmental events and scheduling',
+    ],
+}, {
+    title:   'Chief Operating Officer',
+    company: 'PSI Indonesia',
+    period:  'Jul 2023 – Present',
+    type:    'Ops',
+    bullets: [
+        'Oversee day-to-day operations across departments',
+        'Lead project planning and cross-functional coordination',
+        'Drive process improvement and operational efficiency',
+        'Manage vendor and stakeholder relationships',
+    ],
+}, {
+    title:   'Administration Staff — Research & Community Service',
+    company: 'Telkom University',
+    period:  'Feb 2021 – Nov 2024',
+    type:    'Admin',
+    bullets: [
+        'Administered research program documentation and reporting',
+        'Coordinated community service initiatives and events',
+        'Maintained data accuracy for institutional databases',
+    ],
+}, {
+    title:   'Junior Project Manager',
+    company: 'Rolling Glory',
+    period:  'Sep 2019 – Nov 2020',
+    type:    'PM',
+    bullets: [
+        'Managed project timelines, scope, and deliverables',
+        'Facilitated daily standups and sprint planning sessions',
+        'Acted as liaison between development team and clients',
+        'Delivered 6+ mobile/web projects on schedule',
+    ],
+}];
+
+const typeColor: Record<string, string> = {
+    QA:    'text-primary border-primary',
+    PM:    'text-green-400 border-green-400',
+    Ops:   'text-yellow-400 border-yellow-400',
+    Admin: 'text-muted border-gray-600',
+};
+---
+
+<div class="flex flex-col gap-5">
+
+    {experiences.map(exp => (
+
+        <div class="border border-gray-700 rounded-lg p-5 bg-navy-card hover:border-primary transition-colors duration-200">
+
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
+
+                <div>
+                    <h3 class="font-semibold text-gray-100 text-base">{exp.title}</h3>
+                    <p class="text-sm text-primary mt-0.5">{exp.company}</p>
+                </div>
+
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class={`text-xs border rounded px-2 py-0.5 font-mono ${typeColor[exp.type]}`}>
+                        {exp.type}
+                    </span>
+                    <span class="text-xs text-muted font-mono">{exp.period}</span>
+                </div>
+
+            </div>
+
+            <ul class="flex flex-col gap-1">
+                {exp.bullets.map(b => (
+                    <li class="text-sm text-muted flex gap-2">
+                        <span class="text-primary mt-0.5 shrink-0">›</span>
+                        {b}
+                    </li>
+                ))}
+            </ul>
+
+        </div>
+
+    ))}
+
+</div>

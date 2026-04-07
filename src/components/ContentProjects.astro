@@ -1,0 +1,87 @@
+---
+interface Project {
+    name:        string;
+    description: string;
+    category:    'QA Testing' | 'Project Management';
+    metrics?:    string;
+    tags:        string[];
+    link?: {
+        url?:         string;
+        buttonLabel?: string;
+    };
+};
+
+const projects: Project[] = [{
+    name:        'B7 Supersales',
+    category:    'QA Testing',
+    description: 'End-to-end QA for a B2B sales platform — test planning, regression cycles, and API validation to ensure stability before each release.',
+    metrics:     '50+ test cases · 3 release cycles',
+    tags:        ['Manual Testing', 'API Testing', 'Regression'],
+}, {
+    name:        'Bebeclub',
+    category:    'QA Testing',
+    description: 'Quality assurance for a parenting community mobile app. Managed functional, UI, and compatibility testing across Android and iOS devices.',
+    metrics:     'Android & iOS · UAT coordination',
+    tags:        ['Mobile Testing', 'UAT', 'Bug Reporting'],
+}, {
+    name:        'Treasury',
+    category:    'QA Testing',
+    description: 'QA Engineer for a financial management application. Focused on data integrity testing, edge-case coverage, and security validation.',
+    metrics:     'Financial flows · Edge-case coverage',
+    tags:        ['Functional Testing', 'Security', 'Postman'],
+}, {
+    name:        'TADA Spin Wheel',
+    category:    'QA Testing',
+    description: 'Tested a loyalty rewards feature (spin wheel mechanic) — validating randomness logic, reward distribution, and error handling under load.',
+    metrics:     'Reward logic · Load scenario testing',
+    tags:        ['Feature Testing', 'Logic Validation', 'API'],
+}, {
+    name:        'RS Mitra Keluarga',
+    category:    'Project Management',
+    description: 'Led the delivery of a hospital information system project — coordinated between vendor, hospital management, and dev team from scoping to go-live.',
+    metrics:     'On-time delivery · 4-month timeline',
+    tags:        ['Agile', 'Stakeholder Mgmt', 'Scrum'],
+}, {
+    name:        'Morinaga Platinum',
+    category:    'Project Management',
+    description: 'Project Manager for a consumer brand digital campaign. Managed timeline, vendor deliverables, and content production across multiple channels.',
+    metrics:     'Multi-channel · 3 vendor teams',
+    tags:        ['Project Planning', 'Vendor Mgmt', 'Campaign'],
+}];
+
+const categoryColor: Record<string, string> = {
+    'QA Testing':          'text-primary border-primary',
+    'Project Management':  'text-green-400 border-green-400',
+};
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    {projects.map(project => (
+
+        <div class="flex flex-col border border-gray-700 rounded-lg p-4 bg-navy-card hover:border-primary transition-colors duration-200">
+
+            <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-semibold text-gray-100">{project.name}</h3>
+                <span class={`text-xs border rounded px-2 py-0.5 shrink-0 font-mono ${categoryColor[project.category]}`}>
+                    {project.category === 'QA Testing' ? 'QA' : 'PM'}
+                </span>
+            </div>
+
+            <p class="text-sm text-muted leading-relaxed flex-grow">{project.description}</p>
+
+            {project.metrics && (
+                <p class="text-xs text-primary mt-3 font-mono">{project.metrics}</p>
+            )}
+
+            <div class="flex flex-wrap gap-1.5 mt-3">
+                {project.tags.map(tag => (
+                    <span class="text-xs border border-gray-700 text-muted rounded px-2 py-0.5">{tag}</span>
+                ))}
+            </div>
+
+        </div>
+
+    ))}
+
+</div>

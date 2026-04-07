@@ -1,5 +1,7 @@
-node_module/
+node_modules/
 .env
 *.log
 .claude/
 Thumbs.db
+dist/
+.astro/

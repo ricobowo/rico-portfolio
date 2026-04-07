@@ -1,0 +1,115 @@
+---
+import { Code } from 'astro:components';
+
+const code = `interface QAEngineer {
+    name:            string;
+    role:            string[];
+    yearsExperience: string;
+    location:        string;
+};
+
+interface Skills {
+    qa:              string[];
+    projectManagement: string[];
+    designMultimedia: string[];
+    webDigital:      string[];
+    tools:           string[];
+};
+
+// --- Profile ---
+const me: QAEngineer = {
+    name:            'Rico Tri Wibowo',
+    role:            ['QA Engineer', 'Project Manager', 'COO'],
+    yearsExperience: '5+',
+    location:        'Bandung, Indonesia',
+};
+
+// --- Skills ---
+const skills: Skills = {
+    qa: [
+        'Test Planning & Strategy',
+        'Manual Testing',
+        'API Testing (Postman)',
+        'Regression Testing',
+        'Bug Reporting',
+        'Test Case Documentation',
+        'UAT Coordination',
+    ],
+    projectManagement: [
+        'Agile / Scrum',
+        'Sprint Planning',
+        'Stakeholder Management',
+        'Risk Assessment',
+        'JIRA / Trello',
+    ],
+    designMultimedia: [
+        'Adobe Premiere Pro',
+        'Adobe Photoshop',
+        'Canva',
+        'OBS Studio',
+        'vMix',
+    ],
+    webDigital: [
+        'HTML / CSS',
+        'Basic JavaScript',
+        'CMS Management',
+        'SEO Basics',
+        'Analytics',
+    ],
+    tools: [
+        'Postman',
+        'VS Code',
+        'MS Office Suite',
+        'Hopscotch',
+        'Google Workspace',
+    ],
+};
+
+// --- Stats ---
+const stats = {
+    yearsExperience:   '5+',
+    projectsDelivered: '15+',
+    testCasesWritten:  '300+',
+};
+
+// --- Contact ---
+const contact = (channel: string): string => {
+    switch (channel) {
+        case 'email':     return 'ricobowo10@gmail.com';
+        case 'linkedIn':  return 'linkedin.com/in/rico-tri-wibowo';
+        case 'instagram': return 'instagram.com/ricobowo';
+        default:          return 'See social links.';
+    }
+};
+`;
+---
+
+<Code
+    code={code}
+    lang="ts"
+    wrap={true}
+/>
+
+<style is:global>
+
+    pre.astro-code {
+        @apply bg-transparent !important;
+    }
+
+    pre.astro-code code {
+        @apply block;
+        counter-reset: step;
+        counter-increment: step 0;
+    }
+
+    pre.astro-code code .line {
+        @apply relative;
+    }
+
+    pre.astro-code code .line::before {
+        content: counter(step);
+        counter-increment: step;
+        @apply text-gray-600 pr-4 select-none;
+    }
+
+</style>
