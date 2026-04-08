@@ -1,5 +1,9 @@
-* {
-    margin: 0;
-    padding: 0;
+/* Reset dasar — pastikan box-sizing konsisten di semua elemen */
+*, *::before, *::after {
     box-sizing: border-box;
+}
+
+/* Override font-family seluruh site ke JetBrains Mono */
+html, body {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
 }

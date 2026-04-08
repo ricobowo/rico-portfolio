@@ -10,6 +10,7 @@
  * Cara update meta tag: ubah variabel-variabel di blok frontmatter di bawah.
  */
 
+import '../styles/tailwind.css';
 import '../styles/global.scss';
 
 // URL dasar website — ubah setelah domain production ditentukan
@@ -64,7 +65,7 @@ const dublinCore = {
 
 <!doctype html>
 <!-- Kelas bg-navy dan font-sans diterapkan ke seluruh halaman -->
-<html lang="en" class="bg-navy text-gray-100 font-sans">
+<html lang="en" class="bg-navy text-gray-100">
 
     <head>
 
@@ -78,11 +79,11 @@ const dublinCore = {
         <meta http-equiv="X-UA-Compatible"  content="IE=edge">
         <meta name="viewport"               content="width=device-width, initial-scale=1">
 
-        <!-- Google Fonts: Inter — font utama seluruh website -->
+        <!-- Google Fonts: Inter (font utama) + JetBrains Mono (font kode/README tab) -->
         <!-- preconnect mempercepat loading font dari server Google -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
 
         <!-- Favicon — ikon kecil di tab browser -->
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />                           <!-- SVG (Chrome/Firefox/Edge modern) -->
@@ -134,10 +135,13 @@ const dublinCore = {
 
     </head>
 
-    <!-- Body — konten halaman dimasukkan di <slot /> -->
-    <!-- min-h-[100vh] dan flex items-center justify-center untuk memusatkan kartu di layar -->
-    <body class="min-h-[100vh] flex items-center justify-center p-4">
+    <!-- Body — flex column agar footer selalu di bawah card -->
+    <body class="min-h-[100vh] flex flex-col items-center justify-center p-4 gap-3">
         <slot />
+        <!-- Footer copyright — tampil di semua ukuran layar, di bawah card (bukan tumpuk) -->
+        <footer class="w-full max-w-7xl text-center text-xs text-muted py-2">
+            © 2026 Rico Tri Wibowo · Built with <span class="text-primary">Astro</span> by <span class="text-primary">devi|dev|io</span>
+        </footer>
     </body>
 
 </html>

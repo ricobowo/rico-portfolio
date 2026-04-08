@@ -1,0 +1,4 @@
+/* Entry point Tailwind CSS — diproses PostCSS melalui @astrojs/tailwind integration */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

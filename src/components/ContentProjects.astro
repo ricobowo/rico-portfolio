@@ -2,102 +2,240 @@
 /**
  * ContentProjects.astro — Tab "projects.md": Daftar proyek portofolio
  *
- * Menampilkan 6 proyek Rico dalam grid dua kolom.
- * Setiap kartu berisi: nama, badge kategori, deskripsi, metrics, dan tag.
+ * Menampilkan 11 proyek dalam grid dua kolom dengan sistem filter CSS murni.
+ * Filter: All | QA Testing | Project Management | Operations
  *
- * Badge: QA Testing = biru | Project Management = hijau
+ * Sistem filter bekerja sama dengan sistem tab — radio input tersembunyi
+ * + CSS selector :checked untuk tampilkan/sembunyikan kartu per kategori.
  *
- * Cara menambah proyek baru: tambahkan objek ke array `projects`.
+ * Badge warna: QA = biru | PM = hijau | Ops = kuning
+ *
+ * Cara menambah proyek baru:
+ *   1. Tambahkan objek ke array `projects`
+ *   2. Pastikan `category` sesuai: 'QA Testing' | 'Project Management' | 'Operations Management'
+ *   3. Tambahkan class CSS yang sesuai di bagian filter style jika perlu
  */
 
 // Tipe data untuk satu proyek
 interface Project {
     name:        string;
     description: string;
-    category:    'QA Testing' | 'Project Management';
-    metrics?:    string;
+    category:    'QA Testing' | 'Project Management' | 'Operations Management';
+    metrics?:    string;   // Dipisahkan dengan ' · ' — setiap bagian jadi satu pill
     tags:        string[];
 };
 
-// 4 proyek QA + 2 proyek PM
-const projects: Project[] = [{
-    name:        'B7 Supersales',
-    category:    'QA Testing',
-    description: 'End-to-end QA for a B2B sales platform — test planning, regression cycles, and API validation to ensure stability across every release.',
-    metrics:     '50+ test cases · 3 release cycles',
-    tags:        ['Manual Testing', 'API Testing', 'Regression'],
-}, {
-    name:        'Bebeclub',
-    category:    'QA Testing',
-    description: 'Quality assurance for a parenting community mobile app. Managed functional, UI, and device compatibility testing across Android and iOS.',
-    metrics:     'Android & iOS · UAT coordination',
-    tags:        ['Mobile Testing', 'UAT', 'Bug Reporting'],
-}, {
-    name:        'Treasury',
-    category:    'QA Testing',
-    description: 'QA Engineer for a financial management application. Focused on data integrity testing, edge-case coverage, and security validation.',
-    metrics:     'Financial flows · Edge-case coverage',
-    tags:        ['Functional Testing', 'Security', 'Postman'],
-}, {
-    name:        'TADA Spin Wheel',
-    category:    'QA Testing',
-    description: 'Tested a loyalty rewards feature (spin wheel mechanic) — validating randomness logic, reward distribution, and error handling under load.',
-    metrics:     'Reward logic · Load scenario testing',
-    tags:        ['Feature Testing', 'Logic Validation', 'API'],
-}, {
-    name:        'RS Mitra Keluarga',
-    category:    'Project Management',
-    description: 'Led the delivery of a hospital information system — coordinating vendor, hospital management, and dev team from scoping to go-live.',
-    metrics:     'On-time delivery · 4-month timeline',
-    tags:        ['Agile', 'Stakeholder Mgmt', 'Scrum'],
-}, {
-    name:        'Morinaga Platinum',
-    category:    'Project Management',
-    description: 'Project Manager for a consumer brand digital campaign. Managed timeline, vendor deliverables, and content production across multiple channels.',
-    metrics:     'Multi-channel · 3 vendor teams',
-    tags:        ['Project Planning', 'Vendor Mgmt', 'Campaign'],
-}];
+// 4 proyek QA + 6 proyek PM + 1 proyek Ops — urutan default: QA → PM → Ops
+const projects: Project[] = [
 
-// Warna badge per kategori
+    // --- QA Testing ---
+    {
+        name:        'B7 Supersales — Sales Force App',
+        category:    'QA Testing',
+        description: "Comprehensive QA for PT Bintang 7's sales force automation app covering 6 user roles across the full distribution hierarchy.",
+        metrics:     '12 modules · 206 test cases · 6 user roles',
+        tags:        ['Functional Testing', 'UAT', 'Mobile App', 'Bug Tracking', 'Documentation'],
+    },
+    {
+        name:        'Bebeclub — Loyalty CMS & Mobile App',
+        category:    'QA Testing',
+        description: 'End-to-end testing and user manual authoring for a loyalty platform across web CMS and consumer-facing mobile app.',
+        metrics:     '29 features · 2 manual versions · 2 platforms',
+        tags:        ['E2E Testing', 'CMS', 'Mobile App', 'User Manual', 'Regression Testing'],
+    },
+    {
+        name:        'Treasury — Gold Investment Platform',
+        category:    'QA Testing',
+        description: 'Feature testing for a gold investment platform covering complex transaction flows, KYC verification, and financial data accuracy.',
+        metrics:     '33 features · 8 transaction types · 2 platforms',
+        tags:        ['Fintech', 'KYC Testing', 'API Testing', 'Mobile Web', 'Regression'],
+    },
+    {
+        name:        'TADA Spin Wheel — Loyalty Campaign',
+        category:    'QA Testing',
+        description: 'Test coverage for a loyalty spin wheel campaign feature deployed across two separate enterprise clients.',
+        metrics:     '~99 test cases · 12 features · 2 clients',
+        tags:        ['Campaign Feature', 'CMS', 'UAT', 'Edge Case Testing', 'Multi-client'],
+    },
+
+    // --- Project Management ---
+    {
+        name:        'Astra Digital — Corporate Website',
+        category:    'Project Management',
+        description: "End-to-end project management for a corporate website for one of Indonesia's largest conglomerates.",
+        metrics:     '2 FSD versions · 1 admin manual · Full lifecycle',
+        tags:        ['FSD Documentation', 'Stakeholder Management', 'Corporate Website'],
+    },
+    {
+        name:        'RS Mitra Keluarga — Hospital Website',
+        category:    'Project Management',
+        description: 'Multi-branch hospital website operations covering content updates, editorial planning, and crisis communications during COVID-19.',
+        metrics:     '4 branches · 8 content categories · 6-month plan',
+        tags:        ['Healthcare', 'Content Strategy', 'Website Management', 'Stakeholder Communication'],
+    },
+    {
+        name:        'Morinaga Platinum — Nutrition Portal',
+        category:    'Project Management',
+        description: 'Managed content production pipeline for a maternal and child nutrition portal in collaboration with KlikDokter.',
+        metrics:     '60+ content pieces · 11 articles · 42 meetings',
+        tags:        ['Healthcare', 'Editorial Planning', 'Content Management', 'FMCG'],
+    },
+    {
+        name:        'Kalbe Nutrisional — Multi-brand Website',
+        category:    'Project Management',
+        description: 'Coordinated website content revision across 9 Kalbe Nutrisional product lines within a major pharmaceutical group.',
+        metrics:     '9 product lines · Multiple revision cycles',
+        tags:        ['Pharmaceutical', 'Multi-brand', 'Content Strategy', 'Revision Management'],
+    },
+    {
+        name:        'Mulia Display — E-commerce App',
+        category:    'Project Management',
+        description: 'Managed delivery of an e-commerce web and mobile app for a building materials group across 3 sub-brands.',
+        metrics:     '3 sub-brands · 3 UI review cycles · 40 meetings',
+        tags:        ['E-commerce', 'Mobile App', 'Multi-brand', 'Timeline Management'],
+    },
+    {
+        name:        'Cerebrofort — Mobile Game (Kalbe)',
+        category:    'Project Management',
+        description: 'Managed delivery and quality coordination of a branded mobile game for a pharmaceutical factory visit campaign.',
+        metrics:     'iOS & Android · UXPin tested · OTD completed',
+        tags:        ['Mobile App', 'Pharmaceutical', 'UX Testing', 'Brand Activation'],
+    },
+
+    // --- Operations ---
+    {
+        name:        'PSI Indonesia — Certification Program',
+        category:    'Operations Management',
+        description: "Co-founded and managed Indonesia's franchise of The Public Speaking Institute Philippines, delivering international certification events.",
+        metrics:     '5 events · 100+ certified · 2 Speech Camps',
+        tags:        ['Event Management', 'Operations', 'B2B Contracts', 'International Partnership'],
+    },
+];
+
+// Warna badge per kategori — teks + border
 const categoryColor: Record<string, string> = {
-    'QA Testing':         'text-primary border-primary',
-    'Project Management': 'text-green-400 border-green-400',
+    'QA Testing':            'text-primary border-primary',
+    'Project Management':    'text-green-400 border-green-400',
+    'Operations Management': 'text-yellow-400 border-yellow-400',
+};
+
+// Label singkat untuk badge di pojok kartu
+const categoryShort: Record<string, string> = {
+    'QA Testing':            'QA',
+    'Project Management':    'PM',
+    'Operations Management': 'Ops',
+};
+
+// Class CSS tambahan untuk logika filter — satu per kategori
+const categoryClass: Record<string, string> = {
+    'QA Testing':            'card-qa',
+    'Project Management':    'card-pm',
+    'Operations Management': 'card-ops',
 };
 ---
 
-<!-- Grid proyek — 1 kolom di mobile, 2 kolom di desktop -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- ============================================================
+     Pembungkus sistem filter
+     Radio inputs harus berada sebelum filter-bar dan projects-grid
+     agar CSS sibling selector (~) bisa menjangkau keduanya
+     ============================================================ -->
+<div class="filter-system">
 
-    {projects.map(project => (
+    <!-- Input radio tersembunyi — mengontrol filter aktif (mirip sistem tab) -->
+    <input type="radio" id="proj-all" name="proj-filter" class="filter-radio" checked />
+    <input type="radio" id="proj-qa"  name="proj-filter" class="filter-radio" />
+    <input type="radio" id="proj-pm"  name="proj-filter" class="filter-radio" />
+    <input type="radio" id="proj-ops" name="proj-filter" class="filter-radio" />
 
-        <!-- Kartu proyek — border berubah ke biru saat hover -->
-        <div class="flex flex-col border border-gray-700 rounded-lg p-4 bg-navy-card hover:border-primary transition-colors duration-200">
+    <!-- Baris tombol filter — setiap label mengontrol radio di atas -->
+    <div class="filter-bar flex flex-wrap gap-2 mb-5">
+        <label for="proj-all" class="filter-btn filter-btn-all">All</label>
+        <label for="proj-qa"  class="filter-btn filter-btn-qa">QA Testing</label>
+        <label for="proj-pm"  class="filter-btn filter-btn-pm">Project Management</label>
+        <label for="proj-ops" class="filter-btn filter-btn-ops">Operations</label>
+    </div>
 
-            <!-- Nama proyek + badge kategori -->
-            <div class="flex items-start justify-between gap-2 mb-2">
-                <h3 class="text-base font-semibold text-gray-100">{project.name}</h3>
-                <span class={`text-xs border rounded px-2 py-0.5 shrink-0 font-mono ${categoryColor[project.category]}`}>
-                    {project.category === 'QA Testing' ? 'QA' : 'PM'}
-                </span>
+    <!-- Grid kartu proyek — 1 kolom di mobile, 2 kolom di desktop -->
+    <div class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        {projects.map(project => (
+
+            <!-- Kartu proyek — class kategori dipakai oleh CSS filter -->
+            <div class={`filter-card ${categoryClass[project.category]} flex flex-col border border-gray-700 rounded-lg p-4 bg-navy-card hover:border-primary transition-colors duration-200`}>
+
+                <!-- Badge kategori di atas -->
+                <div class="mb-2">
+                    <span class={`text-xs border rounded px-2 py-0.5 font-mono ${categoryColor[project.category]}`}>
+                        {categoryShort[project.category]}
+                    </span>
+                </div>
+
+                <!-- Judul proyek — tebal -->
+                <h3 class="text-base font-semibold text-gray-100 mb-2">{project.name}</h3>
+
+                <!-- Deskripsi — flex-grow agar semua kartu sejajar tingginya -->
+                <p class="text-sm text-muted leading-relaxed flex-grow">{project.description}</p>
+
+                <!-- Metrics pills — string dipisah per ' · ' menjadi chip individual -->
+                {project.metrics && (
+                    <div class="flex flex-wrap gap-1.5 mt-3">
+                        {project.metrics.split(' · ').map(metric => (
+                            <span class="text-xs font-mono text-primary border border-primary/30 rounded px-2 py-0.5 bg-primary/5">
+                                {metric}
+                            </span>
+                        ))}
+                    </div>
+                )}
+
+                <!-- Tag label di bawah -->
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    {project.tags.map(tag => (
+                        <span class="text-xs border border-gray-700 text-muted rounded px-2 py-0.5">{tag}</span>
+                    ))}
+                </div>
+
             </div>
 
-            <!-- Deskripsi — flex-grow agar semua kartu setinggi sejajar -->
-            <p class="text-sm text-muted leading-relaxed flex-grow">{project.description}</p>
+        ))}
 
-            <!-- Metrics — angka kunci dalam font mono biru -->
-            {project.metrics && (
-                <p class="text-xs text-primary mt-3 font-mono">{project.metrics}</p>
-            )}
-
-            <!-- Tag label -->
-            <div class="flex flex-wrap gap-1.5 mt-3">
-                {project.tags.map(tag => (
-                    <span class="text-xs border border-gray-700 text-muted rounded px-2 py-0.5">{tag}</span>
-                ))}
-            </div>
-
-        </div>
-
-    ))}
+    </div>
 
 </div>
+
+<style is:global>
+
+    /* Sembunyikan radio filter — hanya untuk logika CSS :checked */
+    .filter-radio {
+        @apply absolute opacity-0 pointer-events-none;
+    }
+
+    /* Tampilan default tombol filter — mirip gaya tab tapi lebih kecil */
+    .filter-btn {
+        @apply text-xs px-3 py-1.5 rounded border border-gray-700 text-muted
+               cursor-pointer font-mono transition-all duration-150 select-none;
+    }
+    .filter-btn:hover {
+        @apply border-gray-500 text-gray-300;
+    }
+
+    /* Tombol filter aktif — border + teks berwarna sesuai filter yang dipilih */
+    #proj-all:checked ~ .filter-bar .filter-btn-all,
+    #proj-qa:checked  ~ .filter-bar .filter-btn-qa,
+    #proj-pm:checked  ~ .filter-bar .filter-btn-pm,
+    #proj-ops:checked ~ .filter-bar .filter-btn-ops {
+        @apply border-primary text-primary bg-primary/10;
+    }
+
+    /* Filter QA: sembunyikan semua kartu, tampilkan hanya card-qa */
+    #proj-qa:checked ~ .projects-grid .filter-card           { display: none; }
+    #proj-qa:checked ~ .projects-grid .filter-card.card-qa   { display: flex; }
+
+    /* Filter PM: sembunyikan semua kartu, tampilkan hanya card-pm */
+    #proj-pm:checked ~ .projects-grid .filter-card           { display: none; }
+    #proj-pm:checked ~ .projects-grid .filter-card.card-pm   { display: flex; }
+
+    /* Filter Ops: sembunyikan semua kartu, tampilkan hanya card-ops */
+    #proj-ops:checked ~ .projects-grid .filter-card          { display: none; }
+    #proj-ops:checked ~ .projects-grid .filter-card.card-ops { display: flex; }
+
+</style>

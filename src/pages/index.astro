@@ -21,7 +21,7 @@ import Contact from '../components/Contact.astro';
 import ContentLink from '../components/ContentLink.astro';
 
 // Komponen isi setiap tab
-import ContentExperience from '../components/ContentExperience.astro'; // Tab 1: experience.json
+import ContentExperience from '../components/ContentExperience.astro'; // Tab 1: experience.ts
 import ContentProjects   from '../components/ContentProjects.astro';   // Tab 2: projects.md
 import ContentAbout      from '../components/ContentAbout.astro';       // Tab 3: about.ts
 import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4: README.md
@@ -34,13 +34,13 @@ import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4
          Lebar maksimal 7xl untuk layar besar
          Border + shadow untuk kesan kedalaman
          ======================================================== -->
-    <main class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-700 rounded-2xl overflow-hidden shadow-2xl relative bg-navy mb-12 md:mb-4">
+    <main class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-700 rounded-2xl overflow-hidden shadow-2xl relative bg-navy">
 
         <!-- ====================================================
              PANEL KIRI — Profil, terminal, tombol CV, ikon sosial
              Lebar 2/5 di desktop, lebar penuh di mobile
              ==================================================== -->
-        <div class="p-8 md:p-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-700">
+        <div class="p-8 md:p-6 pb-14 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-700">
             <Profile />
             <Contact />
         </div>
@@ -59,7 +59,7 @@ import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4
                 <div class="tab-controls">
 
                     <!-- Input radio — satu per tab, disembunyikan lewat class .tab-radio -->
-                    <input type="radio" id="tab1" name="tabs" class="tab-radio" checked /> <!-- experience.json -->
+                    <input type="radio" id="tab1" name="tabs" class="tab-radio" checked /> <!-- experience.ts -->
                     <input type="radio" id="tab2" name="tabs" class="tab-radio" />          <!-- projects.md     -->
                     <input type="radio" id="tab3" name="tabs" class="tab-radio" />          <!-- about.ts        -->
                     <input type="radio" id="tab4" name="tabs" class="tab-radio" />          <!-- README.md       -->
@@ -69,7 +69,7 @@ import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4
                          Setiap ContentLink merender <label for="tabN">
                          ========================================== -->
                     <div class="flex bg-navy border-b border-gray-700 sticky top-0 z-10 overflow-x-auto">
-                        <ContentLink contentId="tab1" contentName="experience.json" />
+                        <ContentLink contentId="tab1" contentName="experience.ts" />
                         <ContentLink contentId="tab2" contentName="projects.md" />
                         <ContentLink contentId="tab3" contentName="about.ts" />
                         <ContentLink contentId="tab4" contentName="README.md" />
@@ -111,13 +111,6 @@ import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4
 
     </main>
 
-    <!-- ========================================================
-         Footer — menempel di bawah layar
-         Hanya berisi nama dan jabatan, tidak ada versi untuk publik
-         ======================================================== -->
-    <div class="fixed md:absolute bottom-0 left-0 right-0 w-full text-center bg-navy py-2 text-xs text-muted border-t border-gray-800">
-        Rico Tri Wibowo &mdash; QA Engineer & Project Manager &middot; Bandung, Indonesia
-    </div>
 
 </Layout>
 
@@ -140,7 +133,7 @@ import ContentReadme     from '../components/ContentReadme.astro';      // Tab 4
         transition: background-color 0.2s ease-in-out;
     }
 
-    /* Tab 1 (experience.json) — tampilkan konten + tandai label saat dipilih */
+    /* Tab 1 (experience.ts) — tampilkan konten + tandai label saat dipilih */
     #tab1:checked ~ * #content1 { @apply block opacity-100; }
     #tab1:checked ~ .flex .tab-link:nth-child(1) { @apply border-b-2 border-b-primary; }
 

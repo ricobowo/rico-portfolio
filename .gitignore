@@ -2,7 +2,10 @@ node_modules/
 .env
 *.log
 .claude/
-.claude-prompts/
 Thumbs.db
 dist/
 .astro/
+
+# File lama dari versi HTML/CSS/JS — tidak relevan di branch Astro
+assets/
+rico-portfolio/

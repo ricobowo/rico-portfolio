@@ -11,7 +11,8 @@ export default {
                 muted:      '#94A3B8',
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
+                sans: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
             }
         }
     }

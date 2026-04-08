@@ -5,6 +5,40 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.8.1] — 2026-04-08
+### Fixed
+- **Tailwind CSS tidak ter-load**: Root cause — `@astrojs/tailwind` integration tidak inject CSS di Astro v5 `output: static`. Fix: tambah `src/styles/tailwind.css` dengan `@tailwind` directives dan import langsung di `Layout.astro`
+- **`qa:` alignment**: Extra spasi dari linter di `ContentAbout.astro` diperbaiki kembali ke 4 spasi
+
+### Changed
+- **Font seluruh site**: Ganti dari Inter ke **JetBrains Mono** — lebih developer-aesthetic, konsisten di semua panel
+- **Tab label**: `experience.json` → `experience.ts` (konten TypeScript, bukan JSON)
+- **Footer padding**: `py-2` → `py-3` agar tidak terlalu mepet
+- **`Layout.astro`**: Hapus class `font-sans` dari `<html>` — font-family di-set via CSS global agar tidak kalah specificity dengan Tailwind utility class
+- **`tailwind.config.js`**: Extend `fontFamily.mono` dengan JetBrains Mono
+
+---
+
+## [v0.8.0] — 2026-04-08
+### Changed
+- **ContentProjects.astro**: Redesign penuh tab `projects.md` — dari 6 kartu menjadi 11 proyek (4 QA + 6 PM + 1 Ops) dengan format kartu baru: badge (atas) → judul → deskripsi → metrics pills → tags
+- **ContentProjects.astro**: Tambah kategori baru `Operations Management` untuk proyek PSI Indonesia
+- **ContentProjects.astro**: Sistem filter CSS murni tanpa JavaScript — radio input + `:checked` selector: `All | QA Testing | Project Management | Operations`
+- **ContentProjects.astro**: Metrics ditampilkan sebagai pill individual (string dipisah per ` · `) bukan satu baris teks
+- **Socials.astro**: Reorder ikon sosial media → `Email → LinkedIn → Instagram → X → GitHub`
+- **Socials.astro**: Layout diubah dari `flex flex-wrap gap-2` ke `grid grid-cols-5 gap-2` agar 5 ikon selalu rata tanpa wrapping di semua ukuran layar
+
+### Added
+- **Proyek baru** (5 proyek PM + expanded detail semua proyek):
+  - Astra Digital — Corporate Website (PM)
+  - Kalbe Nutrisional — Multi-brand Website (PM)
+  - Mulia Display — E-commerce App (PM)
+  - Cerebrofort — Mobile Game, Kalbe (PM)
+  - PSI Indonesia — Certification Program (Ops)
+- **Kategori Operations** di filter proyek
+
+---
+
 ## [v0.7.2] — 2026-04-07
 ### Fixed
 - **`.claude-prompts` untracked**: Dilepas dari git tracking (`git rm --cached`) — sekarang benar-benar tidak masuk GitHub sesuai `.gitignore`

@@ -21,23 +21,23 @@ interface Social {
     title?: string;   // Teks tooltip saat kursor diarahkan ke tombol
 }
 
-// Daftar sosial media — ubah URL di sini untuk ganti tujuan link
+// Daftar sosial media — urutan: Email → LinkedIn → Instagram → X → GitHub
 const socials: Social[] = [{
-    icon:  'linkedIn',
-    link:  'https://www.linkedin.com/in/rico-tri-wibowo',
-    title: 'LinkedIn — Rico Tri Wibowo'
-}, {
     icon:  'email',
     link:  'mailto:ricobowo10@gmail.com',
     title: 'Email — ricobowo10@gmail.com'
 }, {
-    icon:  'twitter',
-    link:  'https://twitter.com/ricobowo_',
-    title: 'Twitter / X'
+    icon:  'linkedIn',
+    link:  'https://www.linkedin.com/in/rico-tri-wibowo',
+    title: 'LinkedIn — Rico Tri Wibowo'
 }, {
     icon:  'instagram',
     link:  'https://instagram.com/ricobowo_',
     title: 'Instagram'
+}, {
+    icon:  'twitter',
+    link:  'https://twitter.com/ricobowo_',
+    title: 'Twitter / X'
 }, {
     icon:  'github',
     link:  'https://github.com/ricobowo',
@@ -45,9 +45,8 @@ const socials: Social[] = [{
 }];
 ---
 
-<!-- Baris tombol sosial media -->
-<!-- justify-between agar tombol tersebar merata ke seluruh lebar panel -->
-<div class="flex flex-wrap gap-2 mt-4">
+<!-- Baris ikon sosial media — grid 5 kolom agar selalu rata tanpa wrapping -->
+<div class="grid grid-cols-5 gap-2 mt-4">
 
     {socials.map(social =>
 
