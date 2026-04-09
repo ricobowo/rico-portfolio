@@ -14,6 +14,7 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
   - `muted`: `#94A3B8` → `#8b949e` (GitHub muted gray — teks sekunder)
 - **Badge PM & Ops**: Ditambahkan token warna baru `gh-green` (`#3fb950`) dan `gh-yellow` (`#d29922`) dari GitHub Dark palette, menggantikan Tailwind default `green-400`/`yellow-400`
 - **`tailwind.config.js`**: Tambah token `gh-green` dan `gh-yellow`
+- **Penyesuaian favicon & OG**: Favicon diganti ke `favicon.ico` dan OG diganti ke `og.jpg`
 
 ---
 
