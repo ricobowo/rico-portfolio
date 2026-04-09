@@ -5,10 +5,13 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary:    '#2E86C1',
-                navy:       '#0D1B2A',
-                'navy-card':'#0F2132',
-                muted:      '#94A3B8',
+                // Tema GitHub Dark — disesuaikan dengan terminal Rico
+                primary:     '#58a6ff',  // GitHub blue — accent, border aktif, link
+                navy:        '#010409',  // GitHub background — latar utama (hampir hitam)
+                'navy-card': '#0d1117',  // GitHub panel — permukaan kartu
+                muted:       '#8b949e',  // GitHub muted — teks sekunder
+                'gh-green':  '#3fb950',  // GitHub green — badge PM
+                'gh-yellow': '#d29922',  // GitHub yellow — badge Ops
             },
             fontFamily: {
                 sans: ['JetBrains Mono', 'ui-monospace', 'monospace'],

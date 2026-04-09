@@ -112,11 +112,11 @@ const projects: Project[] = [
     },
 ];
 
-// Warna badge per kategori — teks + border
+// Warna badge per kategori — menggunakan token GitHub Dark dari tailwind.config.js
 const categoryColor: Record<string, string> = {
     'QA Testing':            'text-primary border-primary',
-    'Project Management':    'text-green-400 border-green-400',
-    'Operations Management': 'text-yellow-400 border-yellow-400',
+    'Project Management':    'text-gh-green border-gh-green',
+    'Operations Management': 'text-gh-yellow border-gh-yellow',
 };
 
 // Label singkat untuk badge di pojok kartu

@@ -5,6 +5,18 @@ Format: `[vX.Y.Z] — YYYY-MM-DD` | Patch = bug fix · Minor = new feature · Ma
 
 ---
 
+## [v0.8.2] — 2026-04-09
+### Changed
+- **Tema warna seluruh site**: Migrasi dari navy blue custom ke **GitHub Dark** color palette
+  - `navy`: `#0D1B2A` → `#010409` (GitHub background — hampir hitam)
+  - `navy-card`: `#0F2132` → `#0d1117` (GitHub panel/card surface)
+  - `primary`: `#2E86C1` → `#58a6ff` (GitHub blue — accent, border aktif, link)
+  - `muted`: `#94A3B8` → `#8b949e` (GitHub muted gray — teks sekunder)
+- **Badge PM & Ops**: Ditambahkan token warna baru `gh-green` (`#3fb950`) dan `gh-yellow` (`#d29922`) dari GitHub Dark palette, menggantikan Tailwind default `green-400`/`yellow-400`
+- **`tailwind.config.js`**: Tambah token `gh-green` dan `gh-yellow`
+
+---
+
 ## [v0.8.1] — 2026-04-08
 ### Fixed
 - **Tailwind CSS tidak ter-load**: Root cause — `@astrojs/tailwind` integration tidak inject CSS di Astro v5 `output: static`. Fix: tambah `src/styles/tailwind.css` dengan `@tailwind` directives dan import langsung di `Layout.astro`

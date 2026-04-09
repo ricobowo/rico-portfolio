@@ -77,11 +77,11 @@ const experiences: Experience[] = [{
     ],
 }];
 
-// Warna badge per tipe — teks + border
+// Warna badge per tipe — menggunakan token GitHub Dark dari tailwind.config.js
 const typeColor: Record<string, string> = {
     QA:    'text-primary border-primary',
-    PM:    'text-green-400 border-green-400',
-    Ops:   'text-yellow-400 border-yellow-400',
+    PM:    'text-gh-green border-gh-green',
+    Ops:   'text-gh-yellow border-gh-yellow',
     Admin: 'text-muted border-gray-600',
 };
 ---
