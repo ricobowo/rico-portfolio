@@ -13,6 +13,7 @@
 import '../styles/tailwind.css';
 import '../styles/global.scss';
 import { default as SpeedInsights } from '@vercel/speed-insights/astro';
+import { default as Analytics } from '@vercel/analytics/astro';
 
 // URL dasar website — ubah setelah domain production ditentukan
 const domainBaseURL = 'https://rico-tri-wibowo.vercel.app';
@@ -133,6 +134,9 @@ const dublinCore = {
         <title>{seoTitle}</title>
         <meta name="description" content={seoDescription}>
         <meta name="keywords"    content={seoKeywords}>
+
+        <!-- Vercel Web Analytics -->
+        <Analytics />
 
     </head>
 
