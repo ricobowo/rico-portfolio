@@ -12,6 +12,7 @@
 
 import '../styles/tailwind.css';
 import '../styles/global.scss';
+import { default as SpeedInsights } from '@vercel/speed-insights/astro';
 
 // URL dasar website — ubah setelah domain production ditentukan
 const domainBaseURL = 'https://rico-tri-wibowo.vercel.app';
@@ -142,6 +143,7 @@ const dublinCore = {
         <footer class="w-full max-w-7xl text-center text-xs text-muted py-2">
             © 2026 Rico Tri Wibowo · Built with <span class="text-primary">Astro</span> by <span class="text-primary">devi|dev|io</span>
         </footer>
+        <SpeedInsights />
     </body>
 
 </html>
