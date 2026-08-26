@@ -5,6 +5,7 @@ node_modules/
 Thumbs.db
 dist/
 .astro/
+.vercel/
 assets/
 
 # File lama dari versi HTML/CSS/JS — tidak relevan di branch Astro

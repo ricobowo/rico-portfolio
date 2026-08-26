@@ -96,7 +96,7 @@ npm run build
 ## Version History
 
 See [CHANGELOG.md](./CHANGELOG.md) for full release notes.
-Current version: **v0.7.2**
+Current version: **v0.8.2**
 
 ---
 

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
     output: 'static',
@@ -11,6 +12,12 @@ export default defineConfig({
 
     // Single page, no prefetch needed
     prefetch: false,
+
+    adapter: vercel({
+        webAnalytics: {
+            enabled: true
+        }
+    }),
 
     integrations: [
         tailwind(),
