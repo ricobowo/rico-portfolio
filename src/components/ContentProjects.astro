@@ -2,7 +2,7 @@
 /**
  * ContentProjects.astro — Tab "projects.md": Daftar proyek portofolio
  *
- * Menampilkan 11 proyek dalam grid dua kolom dengan sistem filter CSS murni.
+ * Menampilkan 14 proyek dalam grid dua kolom dengan sistem filter CSS murni.
  * Filter: All | QA Testing | Project Management | Operations
  *
  * Sistem filter bekerja sama dengan sistem tab — radio input tersembunyi
@@ -25,7 +25,7 @@ interface Project {
     tags:        string[];
 };
 
-// 4 proyek QA + 6 proyek PM + 1 proyek Ops — urutan default: QA → PM → Ops
+// 7 proyek QA + 6 proyek PM + 1 proyek Ops — urutan default: QA → PM → Ops
 const projects: Project[] = [
 
     // --- QA Testing ---
@@ -40,22 +40,43 @@ const projects: Project[] = [
         name:        'Bebeclub — Loyalty CMS & Mobile App',
         category:    'QA Testing',
         description: 'End-to-end testing and user manual authoring for a loyalty platform across web CMS and consumer-facing mobile app.',
-        metrics:     '29 features · 2 manual versions · 2 platforms',
+        metrics:     '138 test cases · 14 app journeys · 4 CMS modules · 2 manual versions',
         tags:        ['E2E Testing', 'CMS', 'Mobile App', 'User Manual', 'Regression Testing'],
     },
     {
         name:        'Treasury — Gold Investment Platform',
         category:    'QA Testing',
         description: 'Feature testing for a gold investment platform covering complex transaction flows, KYC verification, and financial data accuracy.',
-        metrics:     '33 features · 8 transaction types · 2 platforms',
+        metrics:     '9 features across website + H5 · 166 test cases · 2 platforms',
         tags:        ['Fintech', 'KYC Testing', 'API Testing', 'Mobile Web', 'Regression'],
     },
     {
         name:        'Spin Wheel Campaign — Loyalty Feature',
         category:    'QA Testing',
         description: 'Test coverage for a loyalty spin wheel campaign feature deployed across two separate enterprise clients.',
-        metrics:     '~99 test cases · 12 features · 2 clients',
+        metrics:     '89 test cases · 12 features · 2 clients',
         tags:        ['Campaign Feature', 'CMS', 'UAT', 'Edge Case Testing', 'Multi-client'],
+    },
+    {
+        name:        'Community Health Worker App — Public Health Field Tool',
+        category:    'QA Testing',
+        description: 'Regression and functional testing for a field application supporting community health workers, covering geolocation tracking, kit inventory management, and health screening workflows.',
+        metrics:     '289 test cases · 3 modules · 122-item regression suite',
+        tags:        ['Functional Testing', 'Regression Testing', 'Mobile App', 'Field Operations'],
+    },
+    {
+        name:        'AI Quiz Campaign — Maternal & Child FMCG Brand',
+        category:    'QA Testing',
+        description: 'End-to-end test coverage for an AI-driven quiz campaign, covering form validation, quiz logic, and full user flow scenarios.',
+        metrics:     '75 test cases · Form, Quiz & E2E coverage',
+        tags:        ['E2E Testing', 'Campaign Feature', 'FMCG', 'Functional Testing'],
+    },
+    {
+        name:        'Interactive Game App — Maternal & Child FMCG Brand',
+        category:    'QA Testing',
+        description: 'End-to-end and UI/copy QA across multiple build and release cycles for an interactive mobile game, including authoring user guideline documentation.',
+        metrics:     '10 release cycles · E2E + UI/copy QA',
+        tags:        ['Mobile App', 'E2E Testing', 'UI Review', 'FMCG', 'Documentation'],
     },
 
     // --- Project Management ---
